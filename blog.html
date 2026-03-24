@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QMorph Blog</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+<nav>
+  <a href="index.html" class="logo" style="text-decoration:none;">Q.Morph</a>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_home">首页</a>
+    <a href="blogs.html" style="color:var(--accent);" data-i18n="nav_blog">博客</a>
+    <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
+  </div>
+</nav>
+
+<div class="wiki-page">
+  <div class="wiki-layout">
+    <aside class="wiki-sidebar">
+      <div class="wiki-panel">
+        <h4 id="wiki-article-num">ARTICLE</h4>
+        <p id="wiki-article-note">加载中...</p>
+      </div>
+      <div class="wiki-panel">
+        <h4>On This Page</h4>
+        <div id="wiki-toc" class="wiki-toc">
+          <span style="color:var(--text-muted);font-size:0.82rem;">生成目录中...</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="wiki-content">
+      <div class="article-wrapper">
+        <div class="article-meta">
+          <a href="blogs.html" class="article-back">← 返回博客</a>
+          <span class="article-num" id="article-number">ARTICLE</span>
+          <span class="article-date" id="article-date">2026-03-24</span>
+        </div>
+
+        <h1 id="article-title">加载中...</h1>
+        <p class="article-subtitle" id="article-subtitle">正在加载文章内容...</p>
+
+        <div id="article-content" class="article-content">
+          <div class="wiki-loading">正在渲染 Markdown 文档...</div>
+        </div>
+
+        <div id="article-nav" class="article-nav"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer>
+  <div style="margin-bottom:0.5rem;">
+    <a href="index.html" class="logo" style="font-family:var(--mono);font-weight:700;font-size:1rem;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">Q.Morph</a>
+  </div>
+  QMorph AI Receptionist — Blog Series v1.0<br>
+  <span style="color:var(--text-muted);">© 2026 QMorph. Confidential.</span>
+</footer>
+
+<script src="blog-data.js"></script>
+<script src="blog-content.js"></script>
+<script src="app.js"></script>
+<script>
+  function slugify(text) {
+    return text
+      .toLowerCase()
+      .replace(/<[^>]+>/g, "")
+      .replace(/[^\w\u4e00-\u9fa5]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+
+  function injectDiagrams(container, diagrams) {
+    if (!diagrams || !diagrams.length) return;
+    diagrams.forEach((diagram) => {
+      const headings = Array.from(container.querySelectorAll("h2, h3"));
+      const target = headings.find((heading) =>
+        heading.textContent.includes(diagram.afterHeadingIncludes)
+      );
+      if (target) {
+        target.insertAdjacentHTML("afterend", diagram.html);
+      }
+    });
+  }
+
+  function buildToc(container) {
+    const toc = document.getElementById("wiki-toc");
+    const headings = Array.from(container.querySelectorAll("h2, h3"));
+    toc.innerHTML = "";
+
+    headings.forEach((heading) => {
+      if (!heading.id) heading.id = slugify(heading.textContent);
+      const link = document.createElement("a");
+      link.href = `#${heading.id}`;
+      link.textContent = heading.textContent;
+      link.className = heading.tagName === "H3" ? "toc-h3" : "";
+      toc.appendChild(link);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const active = toc.querySelector(`a[href="#${entry.target.id}"]`);
+        if (active && entry.isIntersecting) {
+          toc.querySelectorAll("a").forEach((a) => a.classList.remove("active"));
+          active.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-20% 0px -70% 0px", threshold: 0 });
+
+    headings.forEach((heading) => observer.observe(heading));
+  }
+
+  function buildArticleNav(data) {
+    const nav = document.getElementById("article-nav");
+    const prev = data.prev
+      ? `<a href="blog.html?id=${data.prev.id}"><div class="nav-label">← Previous</div><div class="nav-title">Article ${data.prev.id} — ${data.prev.title}</div></a>`
+      : "<div></div>";
+    const next = data.next
+      ? `<a href="blog.html?id=${data.next.id}"><div class="nav-label">Next →</div><div class="nav-title">Article ${data.next.id} — ${data.next.title}</div></a>`
+      : "<div></div>";
+    nav.innerHTML = prev + next;
+  }
+
+  function renderBlog() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id") || "01";
+    const data = window.BLOGS[id];
+    if (!data) {
+      document.getElementById("article-title").textContent = "Article Not Found";
+      document.getElementById("article-subtitle").textContent = "无法找到指定文章。";
+      document.getElementById("article-content").innerHTML = '<div class="wiki-loading">请返回博客列表重新选择文章。</div>';
+      return;
+    }
+
+    document.title = `${data.title} — QMorph Blog`;
+    document.getElementById("article-number").textContent = data.articleNumber;
+    document.getElementById("article-date").textContent = data.date;
+    document.getElementById("article-title").textContent = data.title;
+    document.getElementById("article-subtitle").textContent = data.subtitle;
+    document.getElementById("wiki-article-num").textContent = data.articleNumber;
+    document.getElementById("wiki-article-note").textContent = data.notes;
+    buildArticleNav(data);
+
+    try {
+      const html = window.BLOG_CONTENT && window.BLOG_CONTENT[id];
+      if (!html) throw new Error("Missing precompiled blog content");
+      const container = document.getElementById("article-content");
+      container.innerHTML = html;
+      container.querySelectorAll("h2, h3").forEach((heading) => {
+        heading.id = slugify(heading.textContent);
+      });
+      injectDiagrams(container, data.diagrams);
+      buildToc(container);
+    } catch (error) {
+      document.getElementById("article-content").innerHTML =
+        '<div class="wiki-loading">文章加载失败，请稍后重试。</div>';
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", renderBlog);
+</script>
+</body>
+</html>

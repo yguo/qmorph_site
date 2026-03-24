@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QMorph — AI Receptionist for SMBs | Product Design</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo">Q.Morph</div>
+  <div class="nav-links">
+    <a href="#overview" data-i18n="nav_overview">概览</a>
+    <a href="#architecture" data-i18n="nav_arch">架构</a>
+    <a href="#step1" data-i18n="nav_collect">采集</a>
+    <a href="#step2" data-i18n="nav_build">构建</a>
+    <a href="#step3" data-i18n="nav_connect">接入</a>
+    <a href="#step4" data-i18n="nav_serve">服务</a>
+    <a href="#step5" data-i18n="nav_cal">日程</a>
+    <a href="#step6" data-i18n="nav_report">报告</a>
+    <a href="#tech" class="nav-pill" data-i18n="nav_tech">技术栈</a>
+    <a href="blogs.html" class="nav-pill" data-i18n="nav_blog">博客</a>
+    <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="overview">
+  <div class="hero-badge">◆ Product Design Report v1.0</div>
+  <h1 data-i18n-html="hero_title">Your AI Front Desk,<br><span>Always On.</span></h1>
+  <p data-i18n="hero_desc">QMorph 为中小企业打造专属 AI 语音前台——从需求采集到电话接入、日程管理、智能报告，一站式全流程解决方案。</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">6</div><div class="stat-label" data-i18n="stat_steps">Core Steps</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-label" data-i18n="stat_roles">User Roles</div></div>
+    <div class="stat"><div class="stat-val">24/7</div><div class="stat-label" data-i18n="stat_avail">Availability</div></div>
+    <div class="stat"><div class="stat-val">&lt;2s</div><div class="stat-label" data-i18n="stat_resp">Response</div></div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture">
+  <div class="section-label">System Architecture</div>
+  <div class="section-title" data-i18n="arch_title">端到端流程架构</div>
+  <div class="section-desc" data-i18n="arch_desc">从 SMB 注册到终端用户通话，再到智能报告推送——六步形成完整闭环。</div>
+  <div class="arch-diagram">
+    <div class="arch-flow">
+      <div class="arch-node"><div class="node-icon">💬</div><div class="node-title" data-i18n="arch_n1">需求采集</div><div class="node-sub" data-i18n="arch_n1s">多轮对话</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="node-icon">⚙️</div><div class="node-title" data-i18n="arch_n2">Agent 构建</div><div class="node-sub" data-i18n="arch_n2s">自动配置</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="node-icon">📞</div><div class="node-title" data-i18n="arch_n3">PSTN 接入</div><div class="node-sub" data-i18n="arch_n3s">号码转接</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="node-icon">🎙️</div><div class="node-title" data-i18n="arch_n4">语音服务</div><div class="node-sub" data-i18n="arch_n4s">实时对话</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="node-icon">📅</div><div class="node-title" data-i18n="arch_n5">日程管理</div><div class="node-sub" data-i18n="arch_n5s">日历同步</div></div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node"><div class="node-icon">📊</div><div class="node-title" data-i18n="arch_n6">智能报告</div><div class="node-sub" data-i18n="arch_n6s">自动推送</div></div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:2rem;">
+    <div>
+      <h3 style="font-size:1.1rem;margin-bottom:1rem;" data-i18n="arch_roles_title">三类用户角色</h3>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        <div class="agenda-item"><div class="agenda-type">🏢</div><div class="agenda-info"><h5 data-i18n="role_sme">SMB 业主</h5><p data-i18n="role_sme_d">配置 Agent、管理日程、查看报告</p></div><span class="user-badge user-sme" data-i18n="role_sme_badge">主用户</span></div>
+        <div class="agenda-item"><div class="agenda-type">🔧</div><div class="agenda-info"><h5 data-i18n="role_platform">QMorph 平台</h5><p data-i18n="role_platform_d">自动构建 Agent、管理基础设施</p></div><span class="user-badge user-internal" data-i18n="role_platform_badge">内部</span></div>
+        <div class="agenda-item"><div class="agenda-type">👤</div><div class="agenda-info"><h5 data-i18n="role_end">终端客户</h5><p data-i18n="role_end_d">通过电话与 Voice Agent 交互</p></div><span class="user-badge user-end" data-i18n="role_end_badge">终端用户</span></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.1rem;margin-bottom:1rem;" data-i18n="arch_value_title">核心价值</h3>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;">
+        <div class="agenda-item"><div class="agenda-type">⚡</div><div class="agenda-info"><h5 data-i18n="val_5min">5 分钟上线</h5><p data-i18n="val_5min_d">从注册到电话接入不超过 5 分钟</p></div></div>
+        <div class="agenda-item"><div class="agenda-type">💰</div><div class="agenda-info"><h5 data-i18n="val_cost">节省 80% 成本</h5><p data-i18n="val_cost_d">替代传统前台/客服人力开支</p></div></div>
+        <div class="agenda-item"><div class="agenda-type">🌐</div><div class="agenda-info"><h5 data-i18n="val_lang">多语言支持</h5><p data-i18n="val_lang_d">英语、中文、西语等自动切换</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLACEHOLDER FOR STEPS -->
+<!-- STEP 1 -->
+<div class="step-section" id="step1">
+  <div class="step-header">
+    <div class="step-num">01</div>
+    <div>
+      <h2 data-i18n="s1_title">需求采集 — 多轮对话</h2>
+      <p data-i18n="s1_desc">SMB 业主通过 QMorph 官网的智能对话窗口，描述自己的业务类型、服务内容、营业时间等。系统通过多轮引导，完成信息采集。</p>
+      <div class="user-badge user-sme" data-i18n="s1_user">👤 用户：SMB 业主</div>
+    </div>
+  </div>
+
+  <div class="mock-ui">
+    <div class="mock-titlebar">
+      <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+      <div class="mock-url">qmorph.ai/onboarding</div>
+    </div>
+    <div class="mock-body">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <div style="font-size:1.3rem;font-weight:700;">Setup Your AI Receptionist</div>
+        <div style="font-size:0.85rem;color:var(--text-dim);">Tell us about your business — we'll handle the rest.</div>
+      </div>
+      <div class="chat-container">
+        <div class="chat-messages">
+          <div class="chat-msg bot"><div class="chat-avatar">Q</div><div class="chat-bubble">Hi! 👋 I'm QMorph. Let's set up your AI receptionist. What type of business do you run?</div></div>
+          <div class="chat-msg user"><div class="chat-avatar">S</div><div class="chat-bubble">I run a dental clinic — Bright Smile Dental, based in Austin, TX.</div></div>
+          <div class="chat-msg bot"><div class="chat-avatar">Q</div><div class="chat-bubble">Great! A dental clinic. What services do you offer? (e.g., general check-ups, cleanings, orthodontics, emergency visits…)</div></div>
+          <div class="chat-msg user"><div class="chat-avatar">S</div><div class="chat-bubble">General check-ups, teeth cleaning, whitening, fillings, and emergency dental care.</div></div>
+          <div class="chat-msg bot"><div class="chat-avatar">Q</div><div class="chat-bubble">Got it. What are your business hours? And how long is a typical appointment slot?</div></div>
+          <div class="chat-msg user"><div class="chat-avatar">S</div><div class="chat-bubble">Monday-Friday 9am to 6pm, Saturday 9am to 1pm. Usually 30 min per slot, 1 hour for new patients.</div></div>
+          <div class="chat-msg bot"><div class="chat-avatar">Q</div><div class="chat-bubble">Perfect. Would you like QMorph to handle: ✅ Appointment booking ✅ Rescheduling / Cancellation ✅ Business hour inquiries ✅ Insurance questions — or anything else?</div></div>
+          <div class="chat-msg user"><div class="chat-avatar">S</div><div class="chat-bubble">All of those, plus emergency triage — ask if it's urgent and give them our emergency number if needed.</div></div>
+          <div class="chat-msg bot"><div class="chat-avatar">Q</div><div class="chat-bubble">Excellent! Last question — what tone should your AI receptionist have? Friendly & warm? Professional & concise?</div></div>
+          <div class="chat-msg user"><div class="chat-avatar">S</div><div class="chat-bubble">Warm and friendly, like talking to a helpful neighbor. We want patients to feel comfortable.</div></div>
+        </div>
+        <div class="chat-input-row">
+          <input class="chat-input" placeholder="Type your reply..." disabled>
+          <button class="chat-send">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="report-card" style="margin-top:2rem;">
+    <div class="report-header">
+      <h3 data-i18n="s1_schema_title">📋 采集字段清单</h3>
+      <span class="report-date">Onboarding Schema v1</span>
+    </div>
+    <table class="spec-table">
+      <thead><tr><th data-i18n="th_field">字段</th><th data-i18n="th_desc">说明</th><th data-i18n="th_example">示例</th></tr></thead>
+      <tbody>
+        <tr><td>business_name</td><td data-i18n="f_bname">企业名称</td><td>Bright Smile Dental</td></tr>
+        <tr><td>business_type</td><td data-i18n="f_btype">行业类型</td><td>Dental Clinic</td></tr>
+        <tr><td>location</td><td data-i18n="f_loc">地址</td><td>Austin, TX</td></tr>
+        <tr><td>services[]</td><td data-i18n="f_svc">服务项目列表</td><td>Check-up, Cleaning, Whitening…</td></tr>
+        <tr><td>hours{}</td><td data-i18n="f_hours">营业时间</td><td>Mon-Fri 9-18, Sat 9-13</td></tr>
+        <tr><td>slot_duration</td><td data-i18n="f_slot">默认预约时长</td><td>30min / 60min (new)</td></tr>
+        <tr><td>capabilities[]</td><td data-i18n="f_caps">Agent 功能</td><td>Booking, Reschedule, Triage…</td></tr>
+        <tr><td>tone</td><td data-i18n="f_tone">语气风格</td><td>Warm & Friendly</td></tr>
+        <tr><td>escalation_rules{}</td><td data-i18n="f_esc">升级规则</td><td>Emergency → call ###</td></tr>
+        <tr><td>phone_number</td><td data-i18n="f_phone">原客服电话</td><td>+1 (512) 555-0123</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step-section" id="step2">
+  <div class="step-header">
+    <div class="step-num">02</div>
+    <div>
+      <h2 data-i18n="s2_title">Voice Agent 自动构建</h2>
+      <p data-i18n="s2_desc">系统根据采集到的信息，自动生成 Voice Agent 配置——包括 Prompt、TTS 音色、STT 参数、业务逻辑等。SMB 可以随时点击发布。</p>
+      <div class="user-badge user-internal" data-i18n="s2_user">🔧 用户：QMorph 平台（自动化）</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="mock-ui">
+        <div class="mock-titlebar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <div class="mock-url">qmorph.ai/dashboard/agent/bright-smile</div>
+        </div>
+        <div class="mock-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <div style="font-size:1.1rem;font-weight:700;">🦷 Bright Smile Dental</div>
+              <div style="font-size:0.78rem;color:var(--text-muted);">Agent ID: ag_bsd_0x3f7a</div>
+            </div>
+            <div style="background:rgba(251,146,60,0.15);color:var(--accent4);padding:4px 14px;border-radius:20px;font-size:0.78rem;font-weight:600;">● Draft</div>
+          </div>
+          <div class="config-grid">
+            <div class="config-card"><h4>Business Profile</h4><div class="config-val">Bright Smile Dental<br><span style="color:var(--text-dim);font-size:0.85rem;">Dental Clinic · Austin, TX</span></div></div>
+            <div class="config-card"><h4>Voice & Tone</h4><div class="config-val"><span class="config-tag">Warm</span><span class="config-tag">Friendly</span><span class="config-tag">Female</span><br><span style="color:var(--text-dim);font-size:0.82rem;">ElevenLabs: "Aria"</span></div></div>
+            <div class="config-card"><h4>Capabilities</h4><div class="config-val"><span class="config-tag">📅 Booking</span><span class="config-tag">🔄 Reschedule</span><span class="config-tag">❌ Cancel</span><span class="config-tag">🚨 Triage</span><span class="config-tag">❓ FAQ</span></div></div>
+            <div class="config-card"><h4>Business Hours</h4><div class="config-val" style="font-size:0.85rem;">Mon-Fri: 9:00 AM – 6:00 PM<br>Sat: 9:00 AM – 1:00 PM<br>Sun: Closed</div></div>
+            <div class="config-card"><h4>Services</h4><div class="config-val"><span class="config-tag">Check-up</span><span class="config-tag">Cleaning</span><span class="config-tag">Whitening</span><span class="config-tag">Fillings</span><span class="config-tag">Emergency</span></div></div>
+            <div class="config-card"><h4>Escalation</h4><div class="config-val" style="font-size:0.85rem;">Emergency → +1(512)555-0199<br>Insurance → voicemail<br>Complaint → email alert</div></div>
+          </div>
+          <div style="margin-top:1.5rem;display:flex;gap:0.75rem;">
+            <button style="flex:1;padding:0.75rem;background:var(--bg-elevated);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:var(--font);font-size:0.9rem;cursor:pointer;">🧪 Test Call</button>
+            <button style="flex:1;padding:0.75rem;background:var(--accent);border:none;border-radius:10px;color:var(--bg);font-family:var(--font);font-weight:600;font-size:0.9rem;cursor:pointer;">🚀 Publish Agent</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1rem;margin-bottom:1rem;" data-i18n="s2_flow_title">构建流程</h3>
+      <div class="flow-container">
+        <div class="flow-node" data-i18n="s2_f1">采集数据 JSON</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n="s2_f2">生成 System Prompt</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n="s2_f3">配置 TTS 音色 & STT 语言</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n="s2_f4">注入业务逻辑 (Tools)</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n="s2_f5">配置 Calendar 集成</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node highlight" data-i18n="s2_f6">Agent Ready → 等待发布</div>
+      </div>
+
+      <div class="report-card" style="margin-top:1rem;">
+        <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:0.75rem;">Generated System Prompt (preview)</h4>
+        <div style="background:var(--bg);border-radius:8px;padding:1rem;font-family:var(--mono);font-size:0.78rem;line-height:1.7;color:var(--text-dim);max-height:200px;overflow-y:auto;">
+You are the AI receptionist for <span style="color:var(--accent);">Bright Smile Dental</span>, a dental clinic in Austin, TX.<br><br>
+Your personality is <span style="color:var(--accent2);">warm and friendly</span>, like a helpful neighbor.<br><br>
+You can help callers with: appointment booking, rescheduling, cancellation, business hours, insurance questions, and emergency triage.<br><br>
+Business hours: Mon-Fri 9AM-6PM, Sat 9AM-1PM.<br>
+Default appointment: 30min. New patient: 60min.<br><br>
+If the caller has a dental emergency, ask about severity. If urgent, provide the emergency line: +1(512)555-0199.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step-section" id="step3">
+  <div class="step-header">
+    <div class="step-num">03</div>
+    <div>
+      <h2 data-i18n="s3_title">PSTN 电话接入</h2>
+      <p data-i18n="s3_desc">Agent 发布后，系统通过 Twilio 将 SMB 的原有客服号码呼叫转接到 QMorph Voice Agent。终端客户拨打原号码即可直达 AI 前台。</p>
+      <div class="user-badge user-sme" data-i18n="s3_user">👤 用户：SMB 业主（配置）</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:1rem;margin-bottom:1.5rem;" data-i18n="s3_flow_title">呼叫转接流程</h3>
+      <div class="flow-container">
+        <div class="flow-node" data-i18n-html="s3_f1">👤 终端客户拨打<br><span style="font-family:var(--mono);color:var(--accent);font-size:0.85rem;">+1(512)555-0123</span></div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n="s3_f2">📞 PSTN 网络路由</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n-html="s3_f3">Twilio 呼叫转接<br><span style="font-size:0.78rem;color:var(--text-dim);">Call Forwarding / SIP Trunk</span></div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n="s3_f4">QMorph WebSocket 网关</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node highlight" data-i18n-html="s3_f5">🎙️ Voice Agent 接听<br><span style="font-size:0.78rem;color:var(--text-dim);">Bright Smile Dental AI</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="mock-ui">
+        <div class="mock-titlebar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <div class="mock-url">qmorph.ai/dashboard/phone</div>
+        </div>
+        <div class="mock-body">
+          <div style="font-size:1rem;font-weight:700;margin-bottom:1.5rem;">📞 Phone Configuration</div>
+          <div class="config-grid">
+            <div class="config-card">
+              <h4>Original Number</h4>
+              <div class="config-val" style="font-family:var(--mono);font-size:1.1rem;color:var(--accent4);">+1 (512) 555-0123</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">SMB's existing line</div>
+            </div>
+            <div class="config-card">
+              <h4>QMorph Number</h4>
+              <div class="config-val" style="font-family:var(--mono);font-size:1.1rem;color:var(--accent);">+1 (512) 555-7890</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;">Twilio provisioned</div>
+            </div>
+          </div>
+          <div class="config-card" style="margin-top:1rem;">
+            <h4>Forwarding Status</h4>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:0.5rem;">
+              <div style="width:10px;height:10px;border-radius:50%;background:#28c840;"></div>
+              <span style="color:var(--accent);font-weight:600;font-size:0.9rem;">Active — All calls forwarding to QMorph Agent</span>
+            </div>
+            <div style="font-size:0.8rem;color:var(--text-dim);margin-top:0.75rem;">
+              Fallback: If Agent unavailable → ring original number<br>
+              After hours: Play custom greeting → voicemail
+            </div>
+          </div>
+          <div class="config-card" style="margin-top:1rem;">
+            <h4>Recent Calls</h4>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;margin-top:0.5rem;font-size:0.82rem;">
+              <div style="display:flex;justify-content:space-between;"><span>+1(512)555-4411</span><span style="color:var(--accent);">✓ Booked appt</span><span style="color:var(--text-muted);">2m ago</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>+1(512)555-8822</span><span style="color:var(--accent3);">ℹ Hours inquiry</span><span style="color:var(--text-muted);">18m ago</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>+1(512)555-3300</span><span style="color:var(--accent4);">⚠ Escalated</span><span style="color:var(--text-muted);">1h ago</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step-section" id="step4">
+  <div class="step-header">
+    <div class="step-num">04</div>
+    <div>
+      <h2 data-i18n="s4_title">语音通话服务</h2>
+      <p data-i18n="s4_desc">终端客户拨打电话后，QMorph Voice Agent 以自然语音进行多轮对话，完成预约、查询、分流等任务。以下以牙科诊所预约为例。</p>
+      <div class="user-badge user-end" data-i18n="s4_user">👤 用户：SMB 的终端客户</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div style="display:flex;justify-content:center;">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-notch"></div>
+          <div class="phone-status">
+            <span>9:41</span>
+            <span>📶 ████</span>
+          </div>
+          <div class="call-screen">
+            <div class="call-avatar-ring">
+              <div class="call-avatar-inner">🦷</div>
+            </div>
+            <div class="call-name">Bright Smile Dental</div>
+            <div class="call-status">● Connected — 01:42</div>
+            <div class="call-transcript">
+              <p><span class="t-agent">QMorph:</span> Good morning! This is Bright Smile Dental, how can I help you today?</p><br>
+              <p><span class="t-user">Caller:</span> Hi, I'd like to book a teeth cleaning appointment.</p><br>
+              <p><span class="t-agent">QMorph:</span> Of course! Let me check our availability. Are you an existing patient with us?</p><br>
+              <p><span class="t-user">Caller:</span> Yes, my name is Sarah Johnson.</p><br>
+              <p><span class="t-agent">QMorph:</span> Welcome back, Sarah! I can see your file. We have openings this Thursday at 10 AM and 2:30 PM, or Friday at 11 AM. Which works best for you?</p><br>
+              <p><span class="t-user">Caller:</span> Thursday 2:30 PM works great.</p><br>
+              <p><span class="t-agent">QMorph:</span> You're all set! Thursday, March 26 at 2:30 PM for a teeth cleaning with Dr. Chen. You'll receive a confirmation text shortly. Anything else I can help with?</p>
+            </div>
+            <div class="call-actions">
+              <button class="call-btn call-btn-mute">🔇</button>
+              <button class="call-btn call-btn-end">📞</button>
+              <button class="call-btn call-btn-mute">🔊</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1rem;margin-bottom:1rem;" data-i18n="s4_flow_title">对话流程引擎</h3>
+      <div class="flow-container">
+        <div class="flow-node" data-i18n="s4_f1">来电接入 → 问候语</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n-html="s4_f2">意图识别<br><span style="font-size:0.78rem;color:var(--text-dim);">Booking / Reschedule / FAQ / Emergency</span></div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n-html="s4_f3">信息收集<br><span style="font-size:0.78rem;color:var(--text-dim);">姓名 · 服务类型 · 时间偏好</span></div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n-html="s4_f4">查询日历可用时段<br><span style="font-size:0.78rem;color:var(--text-dim);">Google Calendar API</span></div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n="s4_f5">确认预约 → 写入日历</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node highlight" data-i18n="s4_f6">发送短信确认 → 结束通话</div>
+      </div>
+
+      <div class="report-card" style="margin-top:1.5rem;">
+        <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:0.75rem;" data-i18n="s4_scenarios">支持的业务场景</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+          <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">🦷</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_dental">牙科诊所</h5><p data-i18n="biz_dental_d">预约洗牙/检查</p></div></div>
+          <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">⚖️</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_law">律师事务所</h5><p data-i18n="biz_law_d">预约法律咨询</p></div></div>
+          <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">🔧</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_plumb">水管工</h5><p data-i18n="biz_plumb_d">预约上门维修</p></div></div>
+          <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">💇</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_hair">美发沙龙</h5><p data-i18n="biz_hair_d">预约剪发/造型</p></div></div>
+          <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">🏥</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_clinic">诊所/家医</h5><p data-i18n="biz_clinic_d">预约问诊</p></div></div>
+          <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">🏠</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_realty">房产中介</h5><p data-i18n="biz_realty_d">预约看房</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step-section" id="step5">
+  <div class="step-header">
+    <div class="step-num">05</div>
+    <div>
+      <h2 data-i18n="s5_title">日程与日历管理</h2>
+      <p data-i18n="s5_desc">Voice Agent 自动将预约写入 SMB 的日历系统，支持 Google Calendar / Outlook 双向同步，SMB 可以在 Dashboard 查看和管理所有日程。</p>
+      <div class="user-badge user-sme" data-i18n="s5_user">👤 用户：SMB 业主</div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="mock-ui">
+        <div class="mock-titlebar">
+          <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+          <div class="mock-url">qmorph.ai/dashboard/calendar</div>
+        </div>
+        <div class="mock-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+            <div style="font-size:1rem;font-weight:700;">📅 March 2026</div>
+            <div style="display:flex;gap:0.5rem;">
+              <span style="font-size:0.75rem;color:var(--text-muted);background:var(--bg-elevated);padding:4px 10px;border-radius:6px;">◀ Prev</span>
+              <span style="font-size:0.75rem;color:var(--text-muted);background:var(--bg-elevated);padding:4px 10px;border-radius:6px;">Next ▶</span>
+            </div>
+          </div>
+          <div class="calendar-grid">
+            <div class="cal-header">Mon</div><div class="cal-header">Tue</div><div class="cal-header">Wed</div><div class="cal-header">Thu</div><div class="cal-header">Fri</div><div class="cal-header">Sat</div><div class="cal-header">Sun</div>
+            <div class="cal-day other">23</div><div class="cal-day today has-event">24</div><div class="cal-day has-event">25</div><div class="cal-day has-event">26</div><div class="cal-day has-event">27</div><div class="cal-day">28</div><div class="cal-day other">29</div>
+            <div class="cal-day has-event">30</div><div class="cal-day has-event">31</div><div class="cal-day other">1</div><div class="cal-day other">2</div><div class="cal-day other">3</div><div class="cal-day other">4</div><div class="cal-day other">5</div>
+          </div>
+          <div style="font-size:0.85rem;font-weight:600;margin-bottom:0.75rem;">Today — Mar 24</div>
+          <div class="agenda-list">
+            <div class="agenda-item">
+              <div class="agenda-time">09:00</div>
+              <div class="agenda-info"><h5>Sarah Johnson</h5><p>Teeth Cleaning · 30min</p></div>
+              <div class="agenda-type">🦷</div>
+            </div>
+            <div class="agenda-item">
+              <div class="agenda-time">10:00</div>
+              <div class="agenda-info"><h5>Mike Chen — NEW</h5><p>General Check-up · 60min</p></div>
+              <div class="agenda-type">🆕</div>
+            </div>
+            <div class="agenda-item">
+              <div class="agenda-time">11:30</div>
+              <div class="agenda-info"><h5>Lisa Park</h5><p>Whitening Consultation · 30min</p></div>
+              <div class="agenda-type">✨</div>
+            </div>
+            <div class="agenda-item">
+              <div class="agenda-time">14:00</div>
+              <div class="agenda-info"><h5>David Lee</h5><p>Filling · 45min</p></div>
+              <div class="agenda-type">🔧</div>
+            </div>
+            <div class="agenda-item">
+              <div class="agenda-time">15:30</div>
+              <div class="agenda-info"><h5>Emma Wilson</h5><p>Teeth Cleaning · 30min</p></div>
+              <div class="agenda-type">🦷</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1rem;margin-bottom:1rem;" data-i18n="s5_flow_title">日历集成架构</h3>
+      <div class="flow-container">
+        <div class="flow-node" data-i18n="s5_f1">Voice Agent 完成预约</div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n-html="s5_f2">写入 QMorph DB<br><span style="font-size:0.78rem;color:var(--text-dim);">appointments table</span></div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n-html="s5_f3">双向同步<br><span style="font-size:0.78rem;color:var(--text-dim);">Google Calendar / Outlook</span></div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node" data-i18n-html="s5_f4">发送短信/邮件确认<br><span style="font-size:0.78rem;color:var(--text-dim);">给终端客户 + SMB</span></div>
+        <div class="flow-arrow-down"></div>
+        <div class="flow-node highlight" data-i18n="s5_f5">Dashboard 实时更新</div>
+      </div>
+
+      <div class="report-card" style="margin-top:1.5rem;">
+        <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:0.75rem;" data-i18n="s5_feat_title">日程管理功能</h4>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.88rem;">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--accent);">✓</span><span data-i18n="s5_feat1"> 自动避免时间冲突</span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--accent);">✓</span><span data-i18n="s5_feat2"> 预约前 24h 自动提醒（短信/电话）</span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--accent);">✓</span><span data-i18n="s5_feat3"> 支持取消和改期自动处理</span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--accent);">✓</span><span data-i18n="s5_feat4"> 多医生/多技师日历管理</span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--accent);">✓</span><span data-i18n="s5_feat5"> 等候名单自动填补空位</span></div>
+          <div style="display:flex;align-items:center;gap:8px;"><span style="color:var(--accent);">✓</span><span data-i18n="s5_feat6"> 与 Google / Outlook 双向实时同步</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step-section" id="step6">
+  <div class="step-header">
+    <div class="step-num">06</div>
+    <div>
+      <h2 data-i18n="s6_title">智能报告与提醒</h2>
+      <p data-i18n="s6_desc">QMorph 每日/每周自动生成服务报告——包含通话统计、预约汇总、异常提醒、客户反馈——通过邮件/短信/Dashboard 推送给 SMB。</p>
+      <div class="user-badge user-sme" data-i18n="s6_user">👤 用户：SMB 业主</div>
+    </div>
+  </div>
+
+  <div class="mock-ui" style="max-width:900px;margin:0 auto;">
+    <div class="mock-titlebar">
+      <div class="mock-dot"></div><div class="mock-dot"></div><div class="mock-dot"></div>
+      <div class="mock-url">qmorph.ai/dashboard/reports</div>
+    </div>
+    <div class="mock-body">
+      <div class="report-card" style="border:none;padding:0;margin-bottom:2rem;">
+        <div class="report-header">
+          <h3>📊 Weekly Report — Bright Smile Dental</h3>
+          <span class="report-date">Mar 18 – Mar 24, 2026</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <div class="sc-val" style="color:var(--accent);">127</div>
+            <div class="sc-label">Total Calls</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-val" style="color:var(--accent2);">89</div>
+            <div class="sc-label">Appointments Booked</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-val" style="color:var(--accent3);">94%</div>
+            <div class="sc-label">Resolution Rate</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-val" style="color:var(--accent4);">4.8★</div>
+            <div class="sc-label">Caller Satisfaction</div>
+          </div>
+        </div>
+
+        <div class="two-col" style="margin-bottom:1.5rem;">
+          <div>
+            <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:0.75rem;">Daily Call Volume</h4>
+            <div class="bar-chart">
+              <div class="bar-col"><div class="bar" style="height:65%;"></div><div class="bar-label">Mon</div></div>
+              <div class="bar-col"><div class="bar" style="height:80%;"></div><div class="bar-label">Tue</div></div>
+              <div class="bar-col"><div class="bar" style="height:55%;"></div><div class="bar-label">Wed</div></div>
+              <div class="bar-col"><div class="bar" style="height:90%;"></div><div class="bar-label">Thu</div></div>
+              <div class="bar-col"><div class="bar" style="height:100%;"></div><div class="bar-label">Fri</div></div>
+              <div class="bar-col"><div class="bar" style="height:40%;background:var(--accent2);"></div><div class="bar-label">Sat</div></div>
+              <div class="bar-col"><div class="bar" style="height:5%;background:var(--text-muted);"></div><div class="bar-label">Sun</div></div>
+            </div>
+          </div>
+          <div>
+            <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:0.75rem;">Call Breakdown</h4>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;margin-top:0.5rem;">
+              <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.85rem;">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);"></div>
+                <span>Appointments</span>
+                <span style="margin-left:auto;font-family:var(--mono);color:var(--accent);">70%</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.85rem;">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--accent3);"></div>
+                <span>General Inquiries</span>
+                <span style="margin-left:auto;font-family:var(--mono);color:var(--accent3);">18%</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.85rem;">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--accent4);"></div>
+                <span>Cancellations</span>
+                <span style="margin-left:auto;font-family:var(--mono);color:var(--accent4);">8%</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.75rem;font-size:0.85rem;">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--accent5);"></div>
+                <span>Escalations</span>
+                <span style="margin-left:auto;font-family:var(--mono);color:var(--accent5);">4%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:0.75rem;">⚠ Alerts & Action Items</h4>
+      <div class="alert-list">
+        <div class="alert-item warn">
+          <span class="alert-icon">⚠️</span>
+          <div><strong>High demand on Friday PM</strong> — 5 callers couldn't find available slots on Friday afternoon. Consider extending hours or adding capacity.</div>
+        </div>
+        <div class="alert-item info">
+          <span class="alert-icon">ℹ️</span>
+          <div><strong>3 no-shows this week</strong> — Patients: R. Garcia (Mon), T. Nguyen (Wed), A. Brooks (Fri). Auto-reminder sent 24h before each. Consider adding a 2h reminder.</div>
+        </div>
+        <div class="alert-item success">
+          <span class="alert-icon">✅</span>
+          <div><strong>New patient growth +23%</strong> — 12 new patients booked this week vs 9 last week. Most came from Google search referrals.</div>
+        </div>
+        <div class="alert-item warn">
+          <span class="alert-icon">⚠️</span>
+          <div><strong>Caller asked about Invisalign</strong> — 4 callers asked about orthodontics this week, which is not currently listed in your services. Consider adding it?</div>
+        </div>
+        <div class="alert-item info">
+          <span class="alert-icon">ℹ️</span>
+          <div><strong>Insurance question spike</strong> — 18 callers asked about insurance acceptance. Top queries: Aetna (7), Delta Dental (6), Cigna (5).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<section id="tech">
+  <div class="section-label">Tech Stack</div>
+  <div class="section-title" data-i18n="tech_title">技术选型</div>
+  <div class="section-desc" data-i18n="tech_desc">基于成熟的云原生架构与 AI 基础设施构建。</div>
+  <div class="tech-grid">
+    <div class="tech-item"><span class="tech-icon">🧠</span>GPT-4o / Claude — LLM</div>
+    <div class="tech-item"><span class="tech-icon">🗣️</span>Deepgram — STT</div>
+    <div class="tech-item"><span class="tech-icon">🔊</span>ElevenLabs — TTS</div>
+    <div class="tech-item"><span class="tech-icon">📞</span>Twilio — PSTN/SIP</div>
+    <div class="tech-item"><span class="tech-icon">⚡</span>LiveKit — WebRTC</div>
+    <div class="tech-item"><span class="tech-icon">📅</span>Google Calendar API</div>
+    <div class="tech-item"><span class="tech-icon">🗄️</span>PostgreSQL + Redis</div>
+    <div class="tech-item"><span class="tech-icon">☁️</span>AWS / Vercel</div>
+    <div class="tech-item"><span class="tech-icon">🐍</span>Python / FastAPI</div>
+    <div class="tech-item"><span class="tech-icon">⚛️</span>Next.js / React</div>
+    <div class="tech-item"><span class="tech-icon">🔐</span><span data-i18n="tech_auth">Auth0 — 身份认证</span></div>
+    <div class="tech-item"><span class="tech-icon">📈</span><span data-i18n="tech_analytics">PostHog — 数据分析</span></div>
+  </div>
+
+  <div class="report-card" style="margin-top:2rem;">
+    <h3 style="font-size:1.1rem;margin-bottom:1.5rem;" data-i18n="api_title">API 接口概览</h3>
+    <table class="spec-table">
+      <thead><tr><th data-i18n="api_endpoint">端点</th><th data-i18n="api_method">方法</th><th data-i18n="api_desc_th">说明</th></tr></thead>
+      <tbody>
+        <tr><td><code>/api/onboard</code></td><td>POST</td><td data-i18n="api_d1">提交 SMB 多轮对话采集数据</td></tr>
+        <tr><td><code>/api/agent/build</code></td><td>POST</td><td data-i18n="api_d2">触发 Voice Agent 自动构建</td></tr>
+        <tr><td><code>/api/agent/:id/publish</code></td><td>PUT</td><td data-i18n="api_d3">发布 Agent 并绑定 PSTN 号码</td></tr>
+        <tr><td><code>/api/calls/webhook</code></td><td>POST</td><td data-i18n="api_d4">Twilio 来电 Webhook</td></tr>
+        <tr><td><code>/api/calendar/:id</code></td><td>GET/PUT</td><td data-i18n="api_d5">日程查询与更新</td></tr>
+        <tr><td><code>/api/reports/:id</code></td><td>GET</td><td data-i18n="api_d6">获取每日/每周报告</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div style="margin-bottom:0.5rem;">
+    <span class="logo" style="font-family:var(--mono);font-weight:700;font-size:1rem;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Q.Morph</span>
+  </div>
+  QMorph AI Receptionist — Product Design Report v1.0<br>
+  <span style="color:var(--text-muted);">© 2026 QMorph. Confidential.</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

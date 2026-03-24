@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QMorph Blog — 产品设计深度解读</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="blog.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo" style="text-decoration:none;">Q.Morph</a>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_home">首页</a>
+    <a href="blogs.html" style="color:var(--accent);" data-i18n="nav_blog">博客</a>
+    <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
+  </div>
+</nav>
+
+<div class="blog-hero">
+  <h1 data-i18n-html="blog_hero_title">QMorph <span>Deep Dive</span></h1>
+  <p data-i18n="blog_hero_desc">七篇深度文章，完整解读 AI 语音前台产品的竞品分析、行业洞察、技术架构与市场策略。</p>
+</div>
+
+<div class="blog-grid">
+
+  <!-- 01 -->
+  <a href="blog.html?id=01" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(108,245,194,0.08), rgba(96,165,250,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="30" width="70" height="120" rx="6" stroke="#6cf5c2" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <rect x="40" y="70" width="70" height="80" rx="0" fill="rgba(108,245,194,0.1)"/>
+        <rect x="130" y="50" width="70" height="100" rx="6" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <rect x="130" y="80" width="70" height="70" rx="0" fill="rgba(192,132,252,0.1)"/>
+        <rect x="220" y="40" width="70" height="110" rx="6" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <rect x="220" y="85" width="70" height="65" rx="0" fill="rgba(96,165,250,0.1)"/>
+        <rect x="310" y="60" width="70" height="90" rx="6" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <rect x="310" y="90" width="70" height="60" rx="0" fill="rgba(251,146,60,0.1)"/>
+        <text x="75" y="25" text-anchor="middle" fill="#6cf5c2" font-size="9" font-family="Space Mono" opacity="0.7">QMorph</text>
+        <text x="165" y="45" text-anchor="middle" fill="#c084fc" font-size="9" font-family="Space Mono" opacity="0.7">Air.ai</text>
+        <text x="255" y="35" text-anchor="middle" fill="#60a5fa" font-size="9" font-family="Space Mono" opacity="0.7">Bland.ai</text>
+        <text x="345" y="55" text-anchor="middle" fill="#fb923c" font-size="9" font-family="Space Mono" opacity="0.7">Smith.ai</text>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 01</div>
+      <h3 data-i18n="blog_01_title">竞品分析：北美 AI 接线员市场全景</h3>
+      <p data-i18n="blog_01_desc">10 家主流竞品功能矩阵对比、定价模型解析、5 大市场差异化空间。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag">竞品</span>
+        <span class="blog-tag purple">市场</span>
+        <span class="blog-tag blue">定价</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 02 -->
+  <a href="blog.html?id=02" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(192,132,252,0.08), rgba(244,114,182,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="90" r="45" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="100" y="85" text-anchor="middle" fill="#c084fc" font-size="22">🦷</text>
+        <text x="100" y="105" text-anchor="middle" fill="#c084fc" font-size="8" font-family="Space Mono" opacity="0.7">Dental</text>
+        <circle cx="210" cy="90" r="45" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="210" y="85" text-anchor="middle" fill="#60a5fa" font-size="22">⚖️</text>
+        <text x="210" y="105" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="Space Mono" opacity="0.7">Legal</text>
+        <circle cx="320" cy="90" r="45" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="320" y="85" text-anchor="middle" fill="#fb923c" font-size="22">🔧</text>
+        <text x="320" y="105" text-anchor="middle" fill="#fb923c" font-size="8" font-family="Space Mono" opacity="0.7">Home Svc</text>
+        <line x1="145" y1="90" x2="165" y2="90" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+        <line x1="255" y1="90" x2="275" y2="90" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 02</div>
+      <h3 data-i18n="blog_02_title">行业场景研究：牙医 / 法律 / 家政</h3>
+      <p data-i18n="blog_02_desc">三大垂直行业的来电场景分析、合规要求、核心痛点与 AI 替代率评估。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag purple">行业</span>
+        <span class="blog-tag orange">痛点</span>
+        <span class="blog-tag">场景</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 03 -->
+  <a href="blog.html?id=03" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(96,165,250,0.08), rgba(108,245,194,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="120" y="15" width="160" height="28" rx="6" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="200" y="33" text-anchor="middle" fill="#60a5fa" font-size="9" font-family="Space Mono">PSTN Layer</text>
+        <rect x="120" y="52" width="160" height="28" rx="6" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="200" y="70" text-anchor="middle" fill="#c084fc" font-size="9" font-family="Space Mono">Voice AI Layer</text>
+        <rect x="120" y="89" width="160" height="28" rx="6" stroke="#6cf5c2" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="200" y="107" text-anchor="middle" fill="#6cf5c2" font-size="9" font-family="Space Mono">Business Logic</text>
+        <rect x="120" y="126" width="160" height="28" rx="6" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="200" y="144" text-anchor="middle" fill="#fb923c" font-size="9" font-family="Space Mono">Data Storage</text>
+        <line x1="200" y1="43" x2="200" y2="52" stroke="#8888a0" stroke-width="1" opacity="0.4"/>
+        <line x1="200" y1="80" x2="200" y2="89" stroke="#8888a0" stroke-width="1" opacity="0.4"/>
+        <line x1="200" y1="117" x2="200" y2="126" stroke="#8888a0" stroke-width="1" opacity="0.4"/>
+        <circle cx="55" cy="60" r="20" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <text x="55" y="65" text-anchor="middle" fill="#8888a0" font-size="14" opacity="0.5">📞</text>
+        <circle cx="345" cy="110" r="20" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <text x="345" y="115" text-anchor="middle" fill="#8888a0" font-size="14" opacity="0.5">🗄️</text>
+        <path d="M75 60 L120 45" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <path d="M280 125 L325 115" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 03</div>
+      <h3 data-i18n="blog_03_title">产品架构设计：五层系统与组件选型</h3>
+      <p data-i18n="blog_03_desc">系统架构总览、STT/TTS/LLM/电话组件选型、多租户 SaaS 与 HIPAA 合规。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag blue">架构</span>
+        <span class="blog-tag">技术</span>
+        <span class="blog-tag orange">合规</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 04 -->
+  <a href="blog.html?id=04" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(251,146,60,0.08), rgba(192,132,252,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="155" y="15" width="90" height="26" rx="13" stroke="#6cf5c2" stroke-width="1.5" opacity="0.6"/>
+        <text x="200" y="32" text-anchor="middle" fill="#6cf5c2" font-size="9" font-family="Space Mono">GREETING</text>
+        <line x1="200" y1="41" x2="200" y2="55" stroke="#6cf5c2" stroke-width="1" opacity="0.4"/>
+        <polygon points="196,55 204,55 200,61" fill="#6cf5c2" opacity="0.4"/>
+        <rect x="140" y="62" width="120" height="26" rx="13" stroke="#c084fc" stroke-width="1.5" opacity="0.6"/>
+        <text x="200" y="79" text-anchor="middle" fill="#c084fc" font-size="9" font-family="Space Mono">INTENT DETECT</text>
+        <line x1="200" y1="88" x2="200" y2="102" stroke="#c084fc" stroke-width="1" opacity="0.4"/>
+        <polygon points="196,102 204,102 200,108" fill="#c084fc" opacity="0.4"/>
+        <rect x="135" y="109" width="130" height="26" rx="13" stroke="#60a5fa" stroke-width="1.5" opacity="0.6"/>
+        <text x="200" y="126" text-anchor="middle" fill="#60a5fa" font-size="9" font-family="Space Mono">COLLECTING INFO</text>
+        <line x1="200" y1="135" x2="200" y2="148" stroke="#60a5fa" stroke-width="1" opacity="0.4"/>
+        <polygon points="196,148 204,148 200,154" fill="#60a5fa" opacity="0.4"/>
+        <rect x="150" y="155" width="100" height="22" rx="11" stroke="#fb923c" stroke-width="1.5" opacity="0.6"/>
+        <text x="200" y="170" text-anchor="middle" fill="#fb923c" font-size="9" font-family="Space Mono">CONFIRMED</text>
+        <path d="M265 75 Q310 75 310 40 Q310 20 340 20" stroke="#f472b6" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+        <text x="350" y="24" fill="#f472b6" font-size="8" font-family="Space Mono" opacity="0.6">EMERGENCY</text>
+        <path d="M135 122 Q90 122 90 145 Q90 160 60 160" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <text x="55" y="165" text-anchor="end" fill="#8888a0" font-size="8" font-family="Space Mono" opacity="0.5">TRANSFER</text>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 04</div>
+      <h3 data-i18n="blog_04_title">Call Flow 对话流程设计</h3>
+      <p data-i18n="blog_04_desc">牙医/法律/家政三行业完整对话脚本、状态机设计、异常处理与降级策略。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag orange">对话</span>
+        <span class="blog-tag purple">状态机</span>
+        <span class="blog-tag blue">脚本</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 05 -->
+  <a href="blog.html?id=05" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(244,114,182,0.08), rgba(108,245,194,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="120" cy="90" r="55" stroke="#6cf5c2" stroke-width="1" stroke-dasharray="4 2" opacity="0.3"/>
+        <circle cx="120" cy="90" r="38" stroke="#c084fc" stroke-width="1" stroke-dasharray="4 2" opacity="0.4"/>
+        <circle cx="120" cy="90" r="20" stroke="#f472b6" stroke-width="1.5" opacity="0.6" fill="rgba(244,114,182,0.08)"/>
+        <text x="120" y="87" text-anchor="middle" fill="#f472b6" font-size="7" font-family="Space Mono">SOM</text>
+        <text x="120" y="96" text-anchor="middle" fill="#f472b6" font-size="7" font-family="Space Mono">$120M</text>
+        <text x="120" y="58" text-anchor="middle" fill="#c084fc" font-size="7" font-family="Space Mono" opacity="0.7">SAM $3.2B</text>
+        <text x="120" y="40" text-anchor="middle" fill="#6cf5c2" font-size="7" font-family="Space Mono" opacity="0.5">TAM $18B</text>
+        <rect x="220" y="30" width="150" height="28" rx="6" stroke="#6cf5c2" stroke-width="1" stroke-dasharray="4 2" opacity="0.4"/>
+        <text x="295" y="48" text-anchor="middle" fill="#6cf5c2" font-size="9" font-family="Space Mono" opacity="0.7">Starter · $79/mo</text>
+        <rect x="220" y="68" width="150" height="28" rx="6" stroke="#c084fc" stroke-width="1.5" opacity="0.6" fill="rgba(192,132,252,0.05)"/>
+        <text x="295" y="86" text-anchor="middle" fill="#c084fc" font-size="9" font-family="Space Mono">Growth · $229/mo</text>
+        <rect x="220" y="106" width="150" height="28" rx="6" stroke="#60a5fa" stroke-width="1" stroke-dasharray="4 2" opacity="0.4"/>
+        <text x="295" y="124" text-anchor="middle" fill="#60a5fa" font-size="9" font-family="Space Mono" opacity="0.7">Pro · $499/mo</text>
+        <rect x="220" y="144" width="150" height="28" rx="6" stroke="#fb923c" stroke-width="1" stroke-dasharray="4 2" opacity="0.4"/>
+        <text x="295" y="162" text-anchor="middle" fill="#fb923c" font-size="9" font-family="Space Mono" opacity="0.7">Enterprise · Custom</text>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 05</div>
+      <h3 data-i18n="blog_05_title">定价策略与 GTM 市场进入方案</h3>
+      <p data-i18n="blog_05_desc">TAM/SAM/SOM 拆解、ROI 计算模型、四档定价套餐、GTM 三阶段路线图。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag pink">定价</span>
+        <span class="blog-tag">GTM</span>
+        <span class="blog-tag purple">市场</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 06 -->
+  <a href="blog.html?id=06" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(96,165,250,0.08), rgba(192,132,252,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="50" y="25" width="130" height="60" rx="8" stroke="#6cf5c2" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="115" y="50" text-anchor="middle" fill="#6cf5c2" font-size="8" font-family="Space Mono" opacity="0.7">Context Engineering</text>
+        <text x="115" y="65" text-anchor="middle" fill="#6cf5c2" font-size="12">🧠</text>
+        <rect x="220" y="25" width="130" height="60" rx="8" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="285" y="50" text-anchor="middle" fill="#c084fc" font-size="8" font-family="Space Mono" opacity="0.7">Harness Engineering</text>
+        <text x="285" y="65" text-anchor="middle" fill="#c084fc" font-size="12">🧪</text>
+        <rect x="135" y="100" width="130" height="60" rx="8" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="200" y="125" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="Space Mono" opacity="0.7">Voice AI Pipeline</text>
+        <text x="200" y="143" text-anchor="middle" fill="#60a5fa" font-size="10" font-family="Space Mono" opacity="0.6">STT→LLM→TTS</text>
+        <path d="M130 85 Q130 95 155 100" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <path d="M270 85 Q270 95 245 100" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 06</div>
+      <h3 data-i18n="blog_06_title">技术栈与 Agent 研发工程</h3>
+      <p data-i18n="blog_06_desc">Context Engineering 五层架构、Harness Engineering 测试金字塔、CI/CD 质量门。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag blue">技术栈</span>
+        <span class="blog-tag">测试</span>
+        <span class="blog-tag purple">工程</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 07 -->
+  <a href="blog.html?id=07" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(251,146,60,0.08), rgba(96,165,250,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="80" y="55" fill="#6cf5c2" font-size="24" font-family="Space Mono" font-weight="700" opacity="0.5">Q</text>
+        <text x="100" y="55" fill="#8888a0" font-size="12" font-family="Space Mono" opacity="0.3">&amp;</text>
+        <text x="115" y="55" fill="#c084fc" font-size="24" font-family="Space Mono" font-weight="700" opacity="0.5">A</text>
+        <rect x="60" y="70" width="120" height="18" rx="9" stroke="#6cf5c2" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <rect x="60" y="95" width="100" height="18" rx="9" stroke="#c084fc" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <rect x="60" y="120" width="130" height="18" rx="9" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <rect x="60" y="145" width="80" height="18" rx="9" stroke="#fb923c" stroke-width="1" stroke-dasharray="3 3" opacity="0.3"/>
+        <text x="260" y="55" fill="#fb923c" font-size="22" opacity="0.4">❓</text>
+        <text x="300" y="80" fill="#60a5fa" font-size="18" opacity="0.3">❓</text>
+        <text x="330" y="50" fill="#f472b6" font-size="14" opacity="0.3">❓</text>
+        <text x="280" y="110" fill="#6cf5c2" font-size="16" opacity="0.3">❓</text>
+        <text x="320" y="140" fill="#c084fc" font-size="20" opacity="0.3">❓</text>
+        <text x="350" y="100" fill="#8888a0" font-size="12" opacity="0.2">❓</text>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 07</div>
+      <h3 data-i18n="blog_07_title">常见问题 FAQ — Stakeholder 版</h3>
+      <p data-i18n="blog_07_desc">16 个投资人/客户/顾问高频问题：技术壁垒、号码迁移、安全合规、竞争格局。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag orange">FAQ</span>
+        <span class="blog-tag blue">投资</span>
+        <span class="blog-tag">合规</span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <div style="margin-bottom:0.5rem;">
+    <a href="index.html" class="logo" style="font-family:var(--mono);font-weight:700;font-size:1rem;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">Q.Morph</a>
+  </div>
+  QMorph AI Receptionist — Blog Series v1.0<br>
+  <span style="color:var(--text-muted);">© 2026 QMorph. Confidential.</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
