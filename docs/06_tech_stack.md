@@ -500,7 +500,7 @@ jobs:
 | 层次 | 技术选型 |
 |------|---------|
 | **语音处理** | Deepgram Nova-3 (STT) + Cartesia Sonic (TTS) |
-| **LLM** | Claude 3.5 Sonnet (Anthropic) |
+| **LLM** | Claude Sonnet 4.6 (Anthropic) |
 | **电话** | Telnyx (PSTN + WebRTC + SIP) |
 | **实时框架** | LiveKit Agents SDK |
 | **主语言** | Python 3.12 + asyncio |

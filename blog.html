@@ -15,7 +15,17 @@
     <a href="blogs.html" style="color:var(--accent);" data-i18n="nav_blog">博客</a>
     <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
   </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-overlay" id="mobile-overlay" onclick="closeMenu()">
+  <div class="mobile-menu" onclick="event.stopPropagation()">
+    <a href="index.html" data-i18n="nav_home">首页</a>
+    <a href="blogs.html" style="color:var(--accent);" data-i18n="nav_blog">博客</a>
+    <button id="lang-toggle-m" class="lang-btn" onclick="toggleLang()" style="margin-top:0.5rem;">EN</button>
+  </div>
+</div>
 
 <div class="wiki-page">
   <div class="wiki-layout">

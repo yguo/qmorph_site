@@ -23,7 +23,25 @@
     <a href="blogs.html" class="nav-pill" data-i18n="nav_blog">博客</a>
     <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
   </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-overlay" id="mobile-overlay" onclick="closeMenu()">
+  <div class="mobile-menu" onclick="event.stopPropagation()">
+    <a href="#overview" onclick="closeMenu()" data-i18n="nav_overview">概览</a>
+    <a href="#architecture" onclick="closeMenu()" data-i18n="nav_arch">架构</a>
+    <a href="#step1" onclick="closeMenu()" data-i18n="nav_collect">采集</a>
+    <a href="#step2" onclick="closeMenu()" data-i18n="nav_build">构建</a>
+    <a href="#step3" onclick="closeMenu()" data-i18n="nav_connect">接入</a>
+    <a href="#step4" onclick="closeMenu()" data-i18n="nav_serve">服务</a>
+    <a href="#step5" onclick="closeMenu()" data-i18n="nav_cal">日程</a>
+    <a href="#step6" onclick="closeMenu()" data-i18n="nav_report">报告</a>
+    <a href="#tech" onclick="closeMenu()" data-i18n="nav_tech">技术栈</a>
+    <a href="blogs.html" data-i18n="nav_blog">博客</a>
+    <button id="lang-toggle-m" class="lang-btn" onclick="toggleLang()" style="margin-top:0.5rem;">EN</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <div class="hero" id="overview">
@@ -350,7 +368,7 @@ If the caller has a dental emergency, ask about severity. If urgent, provide the
 
       <div class="report-card" style="margin-top:1.5rem;">
         <h4 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted);margin-bottom:0.75rem;" data-i18n="s4_scenarios">支持的业务场景</h4>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
+        <div class="biz-scenario-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;">
           <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">🦷</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_dental">牙科诊所</h5><p data-i18n="biz_dental_d">预约洗牙/检查</p></div></div>
           <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">⚖️</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_law">律师事务所</h5><p data-i18n="biz_law_d">预约法律咨询</p></div></div>
           <div class="agenda-item" style="padding:0.6rem 0.8rem;"><div class="agenda-type">🔧</div><div class="agenda-info"><h5 style="font-size:0.82rem;" data-i18n="biz_plumb">水管工</h5><p data-i18n="biz_plumb_d">预约上门维修</p></div></div>

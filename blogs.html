@@ -16,11 +16,21 @@
     <a href="blogs.html" style="color:var(--accent);" data-i18n="nav_blog">博客</a>
     <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
   </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-overlay" id="mobile-overlay" onclick="closeMenu()">
+  <div class="mobile-menu" onclick="event.stopPropagation()">
+    <a href="index.html" data-i18n="nav_home">首页</a>
+    <a href="blogs.html" style="color:var(--accent);" data-i18n="nav_blog">博客</a>
+    <button id="lang-toggle-m" class="lang-btn" onclick="toggleLang()" style="margin-top:0.5rem;">EN</button>
+  </div>
+</div>
 
 <div class="blog-hero">
   <h1 data-i18n-html="blog_hero_title">QMorph <span>Deep Dive</span></h1>
-  <p data-i18n="blog_hero_desc">七篇深度文章，完整解读 AI 语音前台产品的竞品分析、行业洞察、技术架构与市场策略。</p>
+  <p data-i18n="blog_hero_desc">十篇深度文章，完整解读 AI 语音前台产品的竞品分析、行业洞察、技术架构与市场策略。</p>
 </div>
 
 <div class="blog-grid">
@@ -244,6 +254,96 @@
         <span class="blog-tag orange">FAQ</span>
         <span class="blog-tag blue">投资</span>
         <span class="blog-tag">合规</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 08 -->
+  <a href="blog.html?id=08" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(108,245,194,0.08), rgba(251,146,60,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="78" width="96" height="28" rx="14" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <text x="88" y="96" text-anchor="middle" fill="#60a5fa" font-size="9" font-family="Space Mono">Prospect</text>
+        <rect x="156" y="56" width="96" height="28" rx="14" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <text x="204" y="74" text-anchor="middle" fill="#c084fc" font-size="9" font-family="Space Mono">Demo</text>
+        <rect x="156" y="102" width="96" height="28" rx="14" stroke="#6cf5c2" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <text x="204" y="120" text-anchor="middle" fill="#6cf5c2" font-size="9" font-family="Space Mono">Pilot</text>
+        <rect x="272" y="78" width="96" height="28" rx="14" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <text x="320" y="96" text-anchor="middle" fill="#fb923c" font-size="9" font-family="Space Mono">Paid</text>
+        <line x1="136" y1="92" x2="156" y2="70" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+        <line x1="136" y1="92" x2="156" y2="116" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+        <line x1="252" y1="70" x2="272" y2="92" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+        <line x1="252" y1="116" x2="272" y2="92" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+        <text x="200" y="34" text-anchor="middle" fill="#6cf5c2" font-size="10" font-family="Space Mono" opacity="0.8">Bay Area Seed Users</text>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 08</div>
+      <h3 data-i18n="blog_08_title">北美湾区种子用户招募实战手册</h3>
+      <p data-i18n="blog_08_desc">面向牙科/法律/家政 SMB 的可落地招募步骤、渠道打法、脚本模板与 90 天执行清单。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag">GTM</span>
+        <span class="blog-tag orange">Seed Users</span>
+        <span class="blog-tag blue">Bay Area</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 09 -->
+  <a href="blog.html?id=09" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(244,114,182,0.08), rgba(251,146,60,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="120" cy="90" r="52" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.5"/>
+        <text x="120" y="78" text-anchor="middle" fill="#f472b6" font-size="28">🇯🇵</text>
+        <text x="120" y="108" text-anchor="middle" fill="#f472b6" font-size="8" font-family="Space Mono" opacity="0.8">Japan</text>
+        <rect x="210" y="35" width="140" height="22" rx="11" stroke="#fb923c" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+        <text x="280" y="50" text-anchor="middle" fill="#fb923c" font-size="8" font-family="Space Mono" opacity="0.7">敬語 Keigo Stack</text>
+        <rect x="210" y="65" width="140" height="22" rx="11" stroke="#c084fc" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+        <text x="280" y="80" text-anchor="middle" fill="#c084fc" font-size="8" font-family="Space Mono" opacity="0.7">AmiVoice + CoeFont</text>
+        <rect x="210" y="95" width="140" height="22" rx="11" stroke="#6cf5c2" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+        <text x="280" y="110" text-anchor="middle" fill="#6cf5c2" font-size="8" font-family="Space Mono" opacity="0.7">IT導入補助金</text>
+        <rect x="210" y="125" width="140" height="22" rx="11" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+        <text x="280" y="140" text-anchor="middle" fill="#60a5fa" font-size="8" font-family="Space Mono" opacity="0.7">歯科 66K+ Clinics</text>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 09</div>
+      <h3 data-i18n="blog_09_title">日本市场从零到一拓展手册</h3>
+      <p data-i18n="blog_09_desc">日语敬语适配、供应商选型、种子用户招募、渠道扩展与 2-3 人运营团队组建全指南。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag pink">日本</span>
+        <span class="blog-tag orange">敬語</span>
+        <span class="blog-tag">GTM</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- 10 -->
+  <a href="blog.html?id=10" class="blog-card">
+    <div class="blog-card-cover" style="background:linear-gradient(135deg, rgba(108,245,194,0.08), rgba(96,165,250,0.08));">
+      <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="80" cy="90" r="38" stroke="#6cf5c2" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <text x="80" y="85" text-anchor="middle" fill="#6cf5c2" font-size="16">🦴</text>
+        <text x="80" y="105" text-anchor="middle" fill="#6cf5c2" font-size="7" font-family="Space Mono" opacity="0.8">整骨院 P0</text>
+        <circle cx="200" cy="90" r="38" stroke="#fb923c" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <text x="200" y="85" text-anchor="middle" fill="#fb923c" font-size="16">🍺</text>
+        <text x="200" y="105" text-anchor="middle" fill="#fb923c" font-size="7" font-family="Space Mono" opacity="0.8">飲食店 P1</text>
+        <circle cx="320" cy="90" r="38" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4 2" opacity="0.6"/>
+        <text x="320" y="85" text-anchor="middle" fill="#60a5fa" font-size="16">🔧</text>
+        <text x="320" y="105" text-anchor="middle" fill="#60a5fa" font-size="7" font-family="Space Mono" opacity="0.8">出張修理 P2</text>
+        <line x1="118" y1="90" x2="162" y2="90" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+        <line x1="238" y1="90" x2="282" y2="90" stroke="#8888a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.4"/>
+        <text x="200" y="155" text-anchor="middle" fill="#8888a0" font-size="9" font-family="Space Mono" opacity="0.6">Zero-to-One Validation</text>
+      </svg>
+    </div>
+    <div class="blog-card-body">
+      <div class="blog-card-num">Article 10</div>
+      <h3 data-i18n="blog_10_title">日本 Zero-to-One 行业验证调查</h3>
+      <p data-i18n="blog_10_desc">整骨院/飲食店/出張サービス三大行业深度对比，找到日本市场最低门槛的 PMF 验证路径。</p>
+      <div class="blog-card-tags">
+        <span class="blog-tag">PMF</span>
+        <span class="blog-tag orange">整骨院</span>
+        <span class="blog-tag blue">飲食店</span>
       </div>
     </div>
   </a>

@@ -94,7 +94,7 @@ const I18N = {
     api_d5:'日程查询与更新',
     api_d6:'获取每日/每周报告',
     blog_hero_title:'QMorph <span>Deep Dive</span>',
-    blog_hero_desc:'七篇深度文章，完整解读 AI 语音前台产品的竞品分析、行业洞察、技术架构与市场策略。',
+    blog_hero_desc:'十篇深度文章，完整解读 AI 语音前台产品的竞品分析、行业洞察、技术架构与市场策略。',
     blog_01_title:'竞品分析：北美 AI 接线员市场全景',
     blog_01_desc:'10 家主流竞品功能矩阵对比、定价模型解析、5 大市场差异化空间。',
     blog_02_title:'行业场景研究：牙医 / 法律 / 家政',
@@ -108,7 +108,13 @@ const I18N = {
     blog_06_title:'技术栈与 Agent 研发工程',
     blog_06_desc:'Context Engineering 五层架构、Harness Engineering 测试金字塔、CI/CD 质量门。',
     blog_07_title:'常见问题 FAQ — Stakeholder 版',
-    blog_07_desc:'16 个投资人/客户/顾问高频问题：技术壁垒、号码迁移、安全合规、竞争格局。',
+    blog_07_desc:'17 个投资人/客户/顾问高频问题：并发能力、技术壁垒、号码迁移、安全合规、竞争格局。',
+    blog_08_title:'北美湾区种子用户招募实战手册',
+    blog_08_desc:'面向牙科/法律/家政 SMB 的可落地招募步骤、渠道打法、脚本模板与 90 天执行清单。',
+    blog_09_title:'日本市场从零到一拓展手册',
+    blog_09_desc:'日语敬语适配、供应商选型、种子用户招募、渠道扩展与 2-3 人运营团队组建全指南。',
+    blog_10_title:'日本 Zero-to-One 行业验证调查',
+    blog_10_desc:'整骨院/飲食店/出張サービス三大行业深度对比，找到日本市场最低门槛的 PMF 验证路径。',
   },
   en: {
     nav_home:'Home', nav_blog:'Blogs',
@@ -205,7 +211,7 @@ const I18N = {
     api_d5:'Calendar query & update',
     api_d6:'Get daily/weekly reports',
     blog_hero_title:'QMorph <span>Deep Dive</span>',
-    blog_hero_desc:'Seven long-form articles covering market research, industry insights, system architecture, and go-to-market strategy for an AI voice receptionist.',
+    blog_hero_desc:'Ten long-form articles covering market research, industry insights, system architecture, and go-to-market strategy for an AI voice receptionist.',
     blog_01_title:'Competitive Analysis: North America AI Receptionists',
     blog_01_desc:'Feature matrix for 10 competitors, pricing model breakdowns, and five whitespace opportunities.',
     blog_02_title:'Industry Research: Dental / Legal / Home Services',
@@ -219,10 +225,134 @@ const I18N = {
     blog_06_title:'Tech Stack and Agent Engineering',
     blog_06_desc:'Context Engineering, Harness Engineering, and the AI quality gate behind the voice agent.',
     blog_07_title:'Stakeholder FAQ',
-    blog_07_desc:'Sixteen common questions on moat, phone routing, safety, compliance, competition, and milestones.',
+    blog_07_desc:'Seventeen common questions on concurrency, moat, phone routing, safety, compliance, competition, and milestones.',
+    blog_08_title:'Bay Area Seed User Recruitment Playbook',
+    blog_08_desc:'Actionable steps, channels, scripts, and a 90-day execution plan to recruit SMB seed users in North America.',
+    blog_09_title:'Japan Market Expansion Playbook',
+    blog_09_desc:'Keigo adaptation, vendor selection, seed user recruitment, channel expansion, and 2-3 person ops team building guide.',
+    blog_10_title:'Japan Zero-to-One Industry Validation',
+    blog_10_desc:'Deep comparison of osteopathic clinics, restaurants, and home services to find the lowest-barrier PMF path in Japan.',
+  },
+  ja: {
+    nav_home:'ホーム', nav_blog:'ブログ',
+    nav_overview:'概要', nav_arch:'設計', nav_collect:'収集', nav_build:'構築',
+    nav_connect:'接続', nav_serve:'通話', nav_cal:'予約', nav_report:'レポート', nav_tech:'技術構成',
+    hero_title:'Your AI Front Desk,<br><span>Always On.</span>',
+    hero_desc:'QMorph は中小事業者向けの AI 音声受付。要件収集から電話接続、予約管理、レポートまでワンストップで提供します。',
+    stat_steps:'Core Steps', stat_roles:'User Roles', stat_avail:'Availability', stat_resp:'Response',
+    arch_title:'エンドツーエンド設計',
+    arch_desc:'登録から通話、レポート配信まで——6 ステップで完全なループを構築。',
+    arch_n1:'要件収集', arch_n1s:'対話形式',
+    arch_n2:'Agent 構築', arch_n2s:'自動設定',
+    arch_n3:'PSTN 接続', arch_n3s:'番号転送',
+    arch_n4:'音声対応', arch_n4s:'リアルタイム',
+    arch_n5:'予約管理', arch_n5s:'カレンダー同期',
+    arch_n6:'レポート', arch_n6s:'自動配信',
+    arch_roles_title:'3 つのユーザーロール',
+    role_sme:'事業オーナー', role_sme_d:'Agent 設定・予約管理・レポート閲覧', role_sme_badge:'メイン',
+    role_platform:'QMorph 基盤', role_platform_d:'Agent の自動構築・インフラ管理', role_platform_badge:'内部',
+    role_end:'エンドユーザー', role_end_d:'電話で Voice Agent と対話', role_end_badge:'利用者',
+    arch_value_title:'提供価値',
+    val_5min:'5 分で開通', val_5min_d:'登録から電話接続まで最短 5 分',
+    val_cost:'コスト 80% 削減', val_cost_d:'従来の受付人件費を大幅カット',
+    val_lang:'多言語対応', val_lang_d:'英語・中国語・スペイン語を自動切替',
+    s1_title:'要件収集 — 対話形式',
+    s1_desc:'事業オーナーが QMorph のチャットで業種・サービス・営業時間を入力。システムが対話形式で情報を収集します。',
+    s1_user:'👤 ユーザー：事業オーナー',
+    s1_schema_title:'📋 収集フィールド',
+    th_field:'フィールド', th_desc:'説明', th_example:'例',
+    f_bname:'事業名', f_btype:'業種', f_loc:'所在地', f_svc:'サービス一覧',
+    f_hours:'営業時間', f_slot:'予約枠', f_caps:'Agent 機能',
+    f_tone:'トーン', f_esc:'エスカレーション条件', f_phone:'既存の電話番号',
+    s2_title:'Voice Agent の自動構築',
+    s2_desc:'収集データから Prompt・音声・STT・業務ロジックを自動生成。いつでも公開できます。',
+    s2_user:'🔧 ユーザー：QMorph（自動）',
+    s2_flow_title:'構築フロー',
+    s2_f1:'収集データ JSON', s2_f2:'System Prompt 生成', s2_f3:'TTS 音声 & STT 言語設定',
+    s2_f4:'業務ロジック注入 (Tools)', s2_f5:'カレンダー連携設定', s2_f6:'Agent 完成 → 公開待ち',
+    s3_title:'PSTN 電話接続',
+    s3_desc:'公開後、既存の電話番号を Voice Agent に転送。お客様は元の番号に電話するだけで AI 受付につながります。',
+    s3_user:'👤 ユーザー：事業オーナー（設定）',
+    s3_flow_title:'着信転送フロー',
+    s3_f1:'👤 お客様が発信<br><span style="font-family:var(--mono);color:var(--accent);font-size:0.85rem;">+1(512)555-0123</span>',
+    s3_f2:'📞 PSTN ルーティング',
+    s3_f3:'Twilio 転送<br><span style="font-size:0.78rem;color:var(--text-dim);">Call Forwarding / SIP Trunk</span>',
+    s3_f4:'QMorph WebSocket GW',
+    s3_f5:'🎙️ Voice Agent が応答<br><span style="font-size:0.78rem;color:var(--text-dim);">Bright Smile Dental AI</span>',
+    s4_title:'音声通話サービス',
+    s4_desc:'お客様の電話に Voice Agent が自然な音声で対応し、予約・問合せ・振分けを完了。歯科医院の予約例をご紹介します。',
+    s4_user:'👤 ユーザー：お客様',
+    s4_flow_title:'対話フローエンジン',
+    s4_f1:'着信 → ご挨拶',
+    s4_f2:'意図認識<br><span style="font-size:0.78rem;color:var(--text-dim);">予約 / 変更 / FAQ / 緊急</span>',
+    s4_f3:'情報収集<br><span style="font-size:0.78rem;color:var(--text-dim);">氏名・内容・希望日時</span>',
+    s4_f4:'空き状況を照会<br><span style="font-size:0.78rem;color:var(--text-dim);">Google Calendar API</span>',
+    s4_f5:'予約確定 → カレンダー書込み',
+    s4_f6:'SMS 確認送信 → 通話終了',
+    s4_scenarios:'対応業種',
+    biz_dental:'歯科医院', biz_dental_d:'検診・クリーニングの予約',
+    biz_law:'法律事務所', biz_law_d:'法律相談の予約',
+    biz_plumb:'水道修理', biz_plumb_d:'出張修理の予約',
+    biz_hair:'美容室', biz_hair_d:'カット・スタイリングの予約',
+    biz_clinic:'クリニック', biz_clinic_d:'診察の予約',
+    biz_realty:'不動産仲介', biz_realty_d:'内見の予約',
+    s5_title:'予約・カレンダー管理',
+    s5_desc:'Voice Agent が予約をカレンダーへ自動書込み。Google Calendar / Outlook と双方向同期し、Dashboard で一括管理できます。',
+    s5_user:'👤 ユーザー：事業オーナー',
+    s5_flow_title:'カレンダー連携構成',
+    s5_f1:'Voice Agent が予約完了',
+    s5_f2:'QMorph DB へ記録<br><span style="font-size:0.78rem;color:var(--text-dim);">appointments table</span>',
+    s5_f3:'双方向同期<br><span style="font-size:0.78rem;color:var(--text-dim);">Google Calendar / Outlook</span>',
+    s5_f4:'SMS / メールで確認送信<br><span style="font-size:0.78rem;color:var(--text-dim);">お客様 + 事業者へ</span>',
+    s5_f5:'Dashboard をリアルタイム更新',
+    s5_feat_title:'予約管理機能',
+    s5_feat1:' 時間の重複を自動防止',
+    s5_feat2:' 予約 24 時間前に自動リマインド',
+    s5_feat3:' キャンセル・変更を自動処理',
+    s5_feat4:' 複数スタッフのカレンダーを一元管理',
+    s5_feat5:' キャンセル待ちで空き枠を自動補填',
+    s5_feat6:' Google / Outlook と双方向リアルタイム同期',
+    s6_title:'レポート・通知',
+    s6_desc:'QMorph が日次・週次のレポートを自動生成——通話統計・予約一覧・異常通知・お客様の声——をメール / SMS / Dashboard で配信。',
+    s6_user:'👤 ユーザー：事業オーナー',
+    tech_title:'技術構成',
+    tech_desc:'クラウドネイティブ基盤と AI インフラで構築。',
+    tech_auth:'Auth0 — 認証',
+    tech_analytics:'PostHog — 分析',
+    api_title:'API エンドポイント一覧',
+    api_endpoint:'エンドポイント', api_method:'メソッド', api_desc_th:'説明',
+    api_d1:'事業情報の収集データを送信',
+    api_d2:'Voice Agent の自動構築をトリガー',
+    api_d3:'Agent を公開し PSTN 番号をバインド',
+    api_d4:'Twilio 着信 Webhook',
+    api_d5:'カレンダーの照会・更新',
+    api_d6:'日次・週次レポートを取得',
+    blog_hero_title:'QMorph <span>Deep Dive</span>',
+    blog_hero_desc:'全 10 本の記事で AI 音声受付の競合分析・業界知見・技術設計・市場戦略を解説。',
+    blog_01_title:'競合分析：北米 AI 受付市場',
+    blog_01_desc:'主要 10 社の機能比較・価格モデル・5 つの差別化領域。',
+    blog_02_title:'業界研究：歯科 / 法律 / ホームサービス',
+    blog_02_desc:'3 業界の着信パターン・コンプライアンス・課題と AI 代替可能性。',
+    blog_03_title:'製品アーキテクチャ：5 層設計とコンポーネント選定',
+    blog_03_desc:'STT/TTS/LLM/テレフォニーの選定、マルチテナント SaaS、HIPAA 対応。',
+    blog_04_title:'Call Flow 設計',
+    blog_04_desc:'3 業界の対話スクリプト・状態マシン・例外処理・フォールバック。',
+    blog_05_title:'料金戦略と GTM プラン',
+    blog_05_desc:'TAM/SAM/SOM・ROI モデル・4 段階料金・GTM ロードマップ。',
+    blog_06_title:'技術スタックと Agent エンジニアリング',
+    blog_06_desc:'Context Engineering・Harness Engineering・AI 品質ゲート設計。',
+    blog_07_title:'FAQ — ステークホルダー向け',
+    blog_07_desc:'同時対応・技術優位性・番号移行・セキュリティなど 17 の質問と回答。',
+    blog_08_title:'北米シードユーザー獲得ガイド',
+    blog_08_desc:'歯科 / 法律 / ホームサービス SMB 向けの獲得手順と 90 日計画。',
+    blog_09_title:'日本市場ゼロイチ展開ガイド',
+    blog_09_desc:'敬語対応・ベンダー選定・シードユーザー獲得・チャネル・運営チーム構築。',
+    blog_10_title:'日本 Zero-to-One 業界検証レポート',
+    blog_10_desc:'整骨院 / 飲食店 / 出張サービスの比較と最短 PMF 検証パスの提案。',
   }
 };
 
+const LANGS = ['zh', 'en', 'ja'];
 let currentLang = 'zh';
 
 function applyLang(lang) {
@@ -236,14 +366,20 @@ function applyLang(lang) {
     const key = el.getAttribute('data-i18n-html');
     if (dict[key] !== undefined) el.innerHTML = dict[key];
   });
-  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  const langMap = { zh: 'zh-CN', en: 'en', ja: 'ja' };
+  document.documentElement.lang = langMap[lang] || 'en';
+  const nextLabel = { zh: 'EN', en: 'JA', ja: '中文' };
+  const label = nextLabel[lang] || 'EN';
   const btn = document.getElementById('lang-toggle');
-  if (btn) btn.textContent = lang === 'zh' ? 'EN' : '中文';
+  if (btn) btn.textContent = label;
+  const btnM = document.getElementById('lang-toggle-m');
+  if (btnM) btnM.textContent = label;
   currentLang = lang;
 }
 
 function toggleLang() {
-  applyLang(currentLang === 'zh' ? 'en' : 'zh');
+  const i = LANGS.indexOf(currentLang);
+  applyLang(LANGS[(i + 1) % LANGS.length]);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -285,4 +421,32 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   applyLang(currentLang);
+
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        closeMenu();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 });
+
+function toggleMenu() {
+  const btn = document.querySelector('.hamburger');
+  const overlay = document.getElementById('mobile-overlay');
+  btn.classList.toggle('open');
+  overlay.classList.toggle('open');
+  document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+}
+
+function closeMenu() {
+  const btn = document.querySelector('.hamburger');
+  const overlay = document.getElementById('mobile-overlay');
+  if (btn) btn.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}

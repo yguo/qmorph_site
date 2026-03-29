@@ -400,7 +400,7 @@ window.BLOGS = {
     articleNumber: "ARTICLE 07",
     date: "2026-03-24",
     prev: { id: "06", title: "技术栈与 Agent 研发" },
-    next: null,
+    next: { id: "08", title: "北美湾区种子用户招募" },
     notes: "FAQ、护城河、电话接入、SLA、路线图",
     diagrams: [
       {
@@ -448,6 +448,231 @@ window.BLOGS = {
               <text x="380" y="176" text-anchor="middle" fill="#60a5fa" font-size="10">&lt;800ms 感知响应</text>
             </svg>
             <div class="diagram-caption">Three-Layer Moat</div>
+          </div>
+        `
+      }
+    ]
+  },
+  "08": {
+    title: "北美（湾区）种子用户招募实战手册",
+    subtitle: "把海外 SMB 种子用户招募从“泛泛而谈”变成可执行的 90 天动作清单。",
+    path: "docs/08_seed_users_recruitment.md",
+    articleNumber: "ARTICLE 08",
+    date: "2026-03-24",
+    prev: { id: "07", title: "Stakeholder FAQ" },
+    next: { id: "09", title: "日本市场拓展手册" },
+    notes: "种子用户、湾区渠道、外拓脚本、90天计划",
+    diagrams: [
+      {
+        afterHeadingIncludes: "二、招募策略总览",
+        html: `
+          <div class="sketch-diagram">
+            <svg viewBox="0 0 760 290" xmlns="http://www.w3.org/2000/svg">
+              <rect x="66" y="96" width="148" height="40" rx="18" fill="none" stroke="#60a5fa" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="140" y="121" text-anchor="middle" fill="#60a5fa" font-size="12">精准名单池</text>
+              <rect x="280" y="96" width="148" height="40" rx="18" fill="none" stroke="#c084fc" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="354" y="121" text-anchor="middle" fill="#c084fc" font-size="12">诊断会 / Demo</text>
+              <rect x="492" y="96" width="148" height="40" rx="18" fill="none" stroke="#6cf5c2" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="566" y="121" text-anchor="middle" fill="#6cf5c2" font-size="12">试点上线</text>
+              <rect x="280" y="178" width="148" height="40" rx="18" fill="none" stroke="#fb923c" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="354" y="203" text-anchor="middle" fill="#fb923c" font-size="12">付费转化</text>
+              <line x1="214" y1="116" x2="280" y2="116" stroke="#8888a0" stroke-width="1.4" stroke-dasharray="5 4"/>
+              <line x1="428" y1="116" x2="492" y2="116" stroke="#8888a0" stroke-width="1.4" stroke-dasharray="5 4"/>
+              <line x1="566" y1="136" x2="428" y2="186" stroke="#8888a0" stroke-width="1.4" stroke-dasharray="5 4"/>
+              <line x1="354" y1="136" x2="354" y2="178" stroke="#8888a0" stroke-width="1.4" stroke-dasharray="5 4"/>
+              <text x="354" y="44" text-anchor="middle" fill="#6cf5c2" font-size="14">Bay Area Seed User Funnel</text>
+              <text x="354" y="62" text-anchor="middle" fill="#8888a0" font-size="10">Prospect → Demo → Pilot → Paid</text>
+            </svg>
+            <div class="diagram-caption">Seed User Recruitment Funnel</div>
+          </div>
+        `
+      },
+      {
+        afterHeadingIncludes: "八、90 天执行清单",
+        html: `
+          <div class="sketch-diagram">
+            <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+              <line x1="70" y1="164" x2="700" y2="164" stroke="#2a2a3a" stroke-width="2" stroke-dasharray="8 5"/>
+              <rect x="92" y="84" width="176" height="52" rx="12" fill="rgba(96,165,250,0.08)" stroke="#60a5fa" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="180" y="104" text-anchor="middle" fill="#60a5fa" font-size="12">Day 1-30</text>
+              <text x="180" y="121" text-anchor="middle" fill="#60a5fa" font-size="10">名单 + 诊断会 + 首批试点</text>
+              <rect x="292" y="66" width="176" height="52" rx="12" fill="rgba(192,132,252,0.08)" stroke="#c084fc" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="380" y="86" text-anchor="middle" fill="#c084fc" font-size="12">Day 31-60</text>
+              <text x="380" y="103" text-anchor="middle" fill="#c084fc" font-size="10">迭代脚本 + 产出案例</text>
+              <rect x="492" y="84" width="176" height="52" rx="12" fill="rgba(108,245,194,0.08)" stroke="#6cf5c2" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="580" y="104" text-anchor="middle" fill="#6cf5c2" font-size="12">Day 61-90</text>
+              <text x="580" y="121" text-anchor="middle" fill="#6cf5c2" font-size="10">付费转化 + 渠道复制</text>
+              <circle cx="180" cy="164" r="5" fill="#60a5fa"/>
+              <circle cx="380" cy="164" r="5" fill="#c084fc"/>
+              <circle cx="580" cy="164" r="5" fill="#6cf5c2"/>
+            </svg>
+            <div class="diagram-caption">90-Day Execution Roadmap</div>
+          </div>
+        `
+      }
+    ]
+  },
+  "09": {
+    title: "日本市场从零到一拓展手册",
+    subtitle: "从日语敬语适配到种子用户招募，用 12 个月把 QMorph 带进日本 SMB 市场。",
+    path: "docs/09_japanese_expansion.md",
+    articleNumber: "ARTICLE 09",
+    date: "2026-03-24",
+    prev: { id: "08", title: "北美湾区种子用户招募" },
+    next: { id: "10", title: "日本 Zero-to-One 行业验证" },
+    notes: "日本市场、敬语、供应商选型、渠道、运营团队",
+    diagrams: [
+      {
+        afterHeadingIncludes: "2.2 敬语（Keigo）系统",
+        html: `
+          <div class="sketch-diagram">
+            <svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg">
+              <rect x="180" y="220" width="400" height="52" rx="12" fill="rgba(108,245,194,0.08)" stroke="#6cf5c2" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="380" y="242" text-anchor="middle" fill="#6cf5c2" font-size="14">丁寧語 Teineigo</text>
+              <text x="380" y="260" text-anchor="middle" fill="#6cf5c2" font-size="10">です / ます — 基本礼貌</text>
+              <rect x="200" y="148" width="360" height="52" rx="12" fill="rgba(192,132,252,0.08)" stroke="#c084fc" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="380" y="170" text-anchor="middle" fill="#c084fc" font-size="14">謙譲語 Kenjougo</text>
+              <text x="380" y="188" text-anchor="middle" fill="#c084fc" font-size="10">Agent 自指：降低自身行为</text>
+              <rect x="220" y="76" width="320" height="52" rx="12" fill="rgba(244,114,182,0.08)" stroke="#f472b6" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="380" y="98" text-anchor="middle" fill="#f472b6" font-size="14">尊敬語 Sonkeigo</text>
+              <text x="380" y="116" text-anchor="middle" fill="#f472b6" font-size="10">面向客户：抬高对方行为</text>
+              <text x="380" y="46" text-anchor="middle" fill="#8888a0" font-size="13">QMorph Voice Agent 敬語スタック</text>
+              <text x="608" y="250" fill="#6cf5c2" font-size="10">Always On</text>
+              <text x="588" y="178" fill="#c084fc" font-size="10">Agent 发话时</text>
+              <text x="568" y="106" fill="#f472b6" font-size="10">引用客户行为时</text>
+            </svg>
+            <div class="diagram-caption">Three-Layer Keigo Stack</div>
+          </div>
+        `
+      },
+      {
+        afterHeadingIncludes: "三、技术栈与供应商选型",
+        html: `
+          <div class="sketch-diagram">
+            <svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg">
+              <text x="380" y="30" text-anchor="middle" fill="#8888a0" font-size="14">Japan Voice AI Stack</text>
+              <rect x="100" y="50" width="560" height="56" rx="12" fill="rgba(96,165,250,0.06)" stroke="#60a5fa" stroke-width="2.2" stroke-dasharray="7 5"/>
+              <text x="380" y="74" text-anchor="middle" fill="#60a5fa" font-size="13">PSTN Layer — NTT CPaaS / Twilio JP</text>
+              <text x="380" y="92" text-anchor="middle" fill="#60a5fa" font-size="10">050/0120 番号 · SIP Trunk · WebSocket</text>
+              <rect x="100" y="120" width="270" height="56" rx="12" fill="rgba(108,245,194,0.06)" stroke="#6cf5c2" stroke-width="2.2" stroke-dasharray="7 5"/>
+              <text x="235" y="144" text-anchor="middle" fill="#6cf5c2" font-size="13">STT — AmiVoice</text>
+              <text x="235" y="162" text-anchor="middle" fill="#6cf5c2" font-size="10">日本 No.1 · 医療特化エンジン</text>
+              <rect x="390" y="120" width="270" height="56" rx="12" fill="rgba(244,114,182,0.06)" stroke="#f472b6" stroke-width="2.2" stroke-dasharray="7 5"/>
+              <text x="525" y="144" text-anchor="middle" fill="#f472b6" font-size="13">TTS — CoeFont</text>
+              <text x="525" y="162" text-anchor="middle" fill="#f472b6" font-size="10">10,000+ 声音 · 声音克隆</text>
+              <rect x="100" y="190" width="560" height="56" rx="12" fill="rgba(192,132,252,0.06)" stroke="#c084fc" stroke-width="2.2" stroke-dasharray="7 5"/>
+              <text x="380" y="214" text-anchor="middle" fill="#c084fc" font-size="13">LLM — Claude Opus 4.x</text>
+              <text x="380" y="232" text-anchor="middle" fill="#c084fc" font-size="10">日本語 MMLU 96.9% · 敬語 Gate 内蔵</text>
+              <rect x="100" y="260" width="560" height="56" rx="12" fill="rgba(251,146,60,0.06)" stroke="#fb923c" stroke-width="2.2" stroke-dasharray="7 5"/>
+              <text x="380" y="284" text-anchor="middle" fill="#fb923c" font-size="13">Cloud — AWS Tokyo (ap-northeast-1)</text>
+              <text x="380" y="302" text-anchor="middle" fill="#fb923c" font-size="10">APPI 準拠 · S3 JP データローカライゼーション</text>
+              <line x1="380" y1="106" x2="380" y2="120" stroke="#8888a0" stroke-width="1.5" stroke-dasharray="5 4"/>
+              <line x1="235" y1="176" x2="235" y2="190" stroke="#8888a0" stroke-width="1.5" stroke-dasharray="5 4"/>
+              <line x1="525" y1="176" x2="525" y2="190" stroke="#8888a0" stroke-width="1.5" stroke-dasharray="5 4"/>
+              <line x1="380" y1="246" x2="380" y2="260" stroke="#8888a0" stroke-width="1.5" stroke-dasharray="5 4"/>
+            </svg>
+            <div class="diagram-caption">Japan Voice AI Technology Stack</div>
+          </div>
+        `
+      },
+      {
+        afterHeadingIncludes: "八、12 个月执行总表",
+        html: `
+          <div class="sketch-diagram">
+            <svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+              <line x1="50" y1="180" x2="720" y2="180" stroke="#2a2a3a" stroke-width="2" stroke-dasharray="8 5"/>
+              <rect x="62" y="80" width="136" height="56" rx="12" fill="rgba(96,165,250,0.08)" stroke="#60a5fa" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="130" y="102" text-anchor="middle" fill="#60a5fa" font-size="11">Month 1-2</text>
+              <text x="130" y="120" text-anchor="middle" fill="#60a5fa" font-size="9">準備期 · 技術適配</text>
+              <rect x="214" y="64" width="136" height="56" rx="12" fill="rgba(192,132,252,0.08)" stroke="#c084fc" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="282" y="86" text-anchor="middle" fill="#c084fc" font-size="11">Month 2-4</text>
+              <text x="282" y="104" text-anchor="middle" fill="#c084fc" font-size="9">検証期 · 歯科パイロット</text>
+              <rect x="366" y="80" width="136" height="56" rx="12" fill="rgba(108,245,194,0.08)" stroke="#6cf5c2" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="434" y="102" text-anchor="middle" fill="#6cf5c2" font-size="11">Month 4-6</text>
+              <text x="434" y="120" text-anchor="middle" fill="#6cf5c2" font-size="9">拡大期 · 補助金認定</text>
+              <rect x="518" y="64" width="136" height="56" rx="12" fill="rgba(251,146,60,0.08)" stroke="#fb923c" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="586" y="86" text-anchor="middle" fill="#fb923c" font-size="11">Month 6-12</text>
+              <text x="586" y="104" text-anchor="middle" fill="#fb923c" font-size="9">加速期 · 50 社目標</text>
+              <circle cx="130" cy="180" r="5" fill="#60a5fa"/>
+              <circle cx="282" cy="180" r="5" fill="#c084fc"/>
+              <circle cx="434" cy="180" r="5" fill="#6cf5c2"/>
+              <circle cx="586" cy="180" r="5" fill="#fb923c"/>
+              <text x="130" y="204" text-anchor="middle" fill="#8888a0" font-size="9">日語 STT/TTS</text>
+              <text x="282" y="204" text-anchor="middle" fill="#8888a0" font-size="9">10 家試點</text>
+              <text x="434" y="204" text-anchor="middle" fill="#8888a0" font-size="9">20 家付費</text>
+              <text x="586" y="204" text-anchor="middle" fill="#8888a0" font-size="9">50 家 + GK 設立</text>
+            </svg>
+            <div class="diagram-caption">12-Month Japan Execution Roadmap</div>
+          </div>
+        `
+      }
+    ]
+  },
+  "10": {
+    title: "日本 Zero-to-One 行业验证调查",
+    subtitle: "整骨院 / 飲食店 / 出張サービス——找到日本市场最低门槛的 PMF 验证路径。",
+    path: "docs/10_japanese_zero_to_one.md",
+    articleNumber: "ARTICLE 10",
+    date: "2026-03-24",
+    prev: { id: "09", title: "日本市场拓展手册" },
+    next: null,
+    notes: "行业筛选、整骨院、飲食店、出張修理、PMF验证",
+    diagrams: [
+      {
+        afterHeadingIncludes: "五、三行业横向对比",
+        html: `
+          <div class="sketch-diagram">
+            <svg viewBox="0 0 760 340" xmlns="http://www.w3.org/2000/svg">
+              <text x="380" y="30" text-anchor="middle" fill="#8888a0" font-size="14">Japan Zero-to-One Industry Radar</text>
+              <polygon points="380,60 540,140 510,280 250,280 220,140" fill="none" stroke="#2a2a3a" stroke-width="2" stroke-dasharray="6 5"/>
+              <polygon points="380,80 510,145 488,264 272,264 250,145" fill="rgba(108,245,194,0.1)" stroke="#6cf5c2" stroke-width="2.2" stroke-dasharray="6 4"/>
+              <polygon points="380,100 484,152 466,248 294,248 276,152" fill="rgba(251,146,60,0.08)" stroke="#fb923c" stroke-width="2.2" stroke-dasharray="6 4"/>
+              <polygon points="380,130 448,164 436,228 324,228 312,164" fill="rgba(96,165,250,0.08)" stroke="#60a5fa" stroke-width="2.2" stroke-dasharray="6 4"/>
+              <text x="380" y="48" text-anchor="middle" fill="#8888a0" font-size="11">無前台度</text>
+              <text x="558" y="148" fill="#8888a0" font-size="11">電話依存</text>
+              <text x="520" y="298" fill="#8888a0" font-size="11">標準化</text>
+              <text x="202" y="298" fill="#8888a0" font-size="11">触達効率</text>
+              <text x="170" y="148" fill="#8888a0" font-size="11">低合規</text>
+              <text x="600" y="72" fill="#6cf5c2" font-size="12">● 整骨院（P0）</text>
+              <text x="600" y="92" fill="#fb923c" font-size="12">● 飲食店（P1）</text>
+              <text x="600" y="112" fill="#60a5fa" font-size="12">● 出張修理（P2）</text>
+            </svg>
+            <div class="diagram-caption">Industry Validation Radar</div>
+          </div>
+        `
+      },
+      {
+        afterHeadingIncludes: "七、Phase 展開ロードマップ",
+        html: `
+          <div class="sketch-diagram">
+            <svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+              <line x1="50" y1="180" x2="720" y2="180" stroke="#2a2a3a" stroke-width="2" stroke-dasharray="8 5"/>
+              <rect x="62" y="76" width="150" height="60" rx="12" fill="rgba(108,245,194,0.08)" stroke="#6cf5c2" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="137" y="98" text-anchor="middle" fill="#6cf5c2" font-size="12">Phase 0</text>
+              <text x="137" y="116" text-anchor="middle" fill="#6cf5c2" font-size="9">整骨院 10 院</text>
+              <text x="137" y="130" text-anchor="middle" fill="#6cf5c2" font-size="8">Month 1-4</text>
+              <rect x="228" y="60" width="150" height="60" rx="12" fill="rgba(251,146,60,0.08)" stroke="#fb923c" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="303" y="82" text-anchor="middle" fill="#fb923c" font-size="12">Phase 1</text>
+              <text x="303" y="100" text-anchor="middle" fill="#fb923c" font-size="9">飲食店 50 店</text>
+              <text x="303" y="114" text-anchor="middle" fill="#fb923c" font-size="8">Month 4-8</text>
+              <rect x="394" y="76" width="150" height="60" rx="12" fill="rgba(96,165,250,0.08)" stroke="#60a5fa" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="469" y="98" text-anchor="middle" fill="#60a5fa" font-size="12">Phase 2</text>
+              <text x="469" y="116" text-anchor="middle" fill="#60a5fa" font-size="9">出張サービス</text>
+              <text x="469" y="130" text-anchor="middle" fill="#60a5fa" font-size="8">Month 8-12</text>
+              <rect x="560" y="60" width="150" height="60" rx="12" fill="rgba(192,132,252,0.08)" stroke="#c084fc" stroke-width="2.2" stroke-dasharray="7 4"/>
+              <text x="635" y="82" text-anchor="middle" fill="#c084fc" font-size="12">Phase 3</text>
+              <text x="635" y="100" text-anchor="middle" fill="#c084fc" font-size="9">歯科・美容サロン</text>
+              <text x="635" y="114" text-anchor="middle" fill="#c084fc" font-size="8">Month 12+</text>
+              <circle cx="137" cy="180" r="5" fill="#6cf5c2"/>
+              <circle cx="303" cy="180" r="5" fill="#fb923c"/>
+              <circle cx="469" cy="180" r="5" fill="#60a5fa"/>
+              <circle cx="635" cy="180" r="5" fill="#c084fc"/>
+              <text x="137" y="204" text-anchor="middle" fill="#8888a0" font-size="9">PMF 検証</text>
+              <text x="303" y="204" text-anchor="middle" fill="#8888a0" font-size="9">スケール検証</text>
+              <text x="469" y="204" text-anchor="middle" fill="#8888a0" font-size="9">業態横展開</text>
+              <text x="635" y="204" text-anchor="middle" fill="#8888a0" font-size="9">フルバーティカル</text>
+            </svg>
+            <div class="diagram-caption">Four-Phase Japan Industry Rollout</div>
           </div>
         `
       }
