@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CaliforniaWellDone — ElevenLabs Conversational AI Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .demo-hero {
+      padding: 8rem 2rem 3rem;
+      text-align: center;
+      position: relative;
+    }
+    .demo-hero::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at 50% 30%, rgba(251,146,60,0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 60%, rgba(108,245,194,0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .demo-hero h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; letter-spacing: -1.5px; margin-bottom: 0.5rem;
+    }
+    .demo-hero h1 span {
+      background: linear-gradient(135deg, #fb923c, #f472b6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .demo-hero .agent-id {
+      font-family: var(--mono); font-size: 0.82rem; color: var(--text-muted);
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      display: inline-block; padding: 6px 16px; border-radius: 20px;
+      margin-top: 0.75rem; user-select: all;
+    }
+    .demo-body {
+      max-width: 960px; margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    /* Live demo */
+    .live-demo {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2.5rem 2rem;
+      text-align: center; margin-bottom: 3rem;
+      position: relative; overflow: hidden;
+    }
+    .live-demo::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 50% 100%, rgba(251,146,60,0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .live-demo h2 {
+      font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+    .live-demo p { color: var(--text-dim); font-size: 0.92rem; margin-bottom: 1.5rem; }
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 1.5px; color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .live-badge::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(108,245,194,0.6);
+      animation: pulse-dot 2s ease infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+    }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex; gap: 0; border-bottom: 1px solid var(--border);
+      margin-bottom: 0; overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: none; border: none; border-bottom: 2px solid transparent;
+      color: var(--text-muted); font-family: var(--mono);
+      font-size: 0.78rem; font-weight: 700; padding: 0.75rem 1.25rem;
+      cursor: pointer; transition: all 0.2s; white-space: nowrap;
+      letter-spacing: 0.3px;
+    }
+    .tab-btn:hover { color: var(--text-dim); }
+    .tab-btn.active {
+      color: var(--accent4);
+      border-bottom-color: var(--accent4);
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Code blocks */
+    .code-section {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 0 0 var(--radius) var(--radius);
+      border-top: none;
+    }
+    .code-block {
+      position: relative; margin: 0;
+    }
+    .code-block pre {
+      background: var(--bg-elevated);
+      margin: 0; padding: 1.5rem;
+      font-family: var(--mono); font-size: 0.8rem;
+      line-height: 1.75; color: var(--text-dim);
+      overflow-x: auto; border-radius: 0;
+      border: none;
+    }
+    .code-block .copy-btn {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text-muted); font-family: var(--mono);
+      font-size: 0.68rem; padding: 4px 10px; border-radius: 6px;
+      cursor: pointer; transition: all 0.2s; z-index: 2;
+    }
+    .code-block .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .code-block .copy-btn.copied { border-color: var(--accent); color: var(--accent); }
+    .code-note {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem; color: var(--text-dim); line-height: 1.7;
+    }
+    .code-note strong { color: var(--text); }
+
+    /* Install command */
+    .install-cmd {
+      display: flex; align-items: center; gap: 0.75rem;
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 0.75rem 1rem;
+      font-family: var(--mono); font-size: 0.82rem;
+      margin: 1rem 1.5rem 0; color: var(--text-dim);
+    }
+    .install-cmd .prompt { color: var(--accent); user-select: none; }
+
+    /* Feature list */
+    .feat-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.5rem; padding: 1rem 1.5rem 1.5rem;
+    }
+    .feat-item {
+      font-size: 0.82rem; color: var(--text-dim);
+      display: flex; align-items: flex-start; gap: 6px;
+    }
+    .feat-item code {
+      font-family: var(--mono); font-size: 0.78em;
+      background: var(--bg-elevated); padding: 1px 5px;
+      border-radius: 3px; color: var(--accent4);
+    }
+    .feat-dot { color: var(--accent4); flex-shrink: 0; margin-top: 2px; }
+
+    /* Section headings */
+    .section-head {
+      font-size: 0.72rem; font-family: var(--mono);
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--accent4); padding: 1.25rem 1.5rem 0.5rem;
+    }
+    .section-body {
+      padding: 0 1.5rem 1.5rem;
+      font-size: 0.88rem; color: var(--text-dim); line-height: 1.7;
+    }
+
+    /* Docs links */
+    .docs-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0.75rem; margin-top: 2.5rem;
+    }
+    .docs-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 1.25rem;
+      text-decoration: none; transition: all 0.2s;
+      display: block;
+    }
+    .docs-card:hover {
+      border-color: var(--accent4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(251,146,60,0.08);
+    }
+    .docs-card h4 {
+      font-size: 0.9rem; color: var(--text); font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .docs-card p {
+      font-size: 0.78rem; color: var(--text-muted); margin: 0;
+    }
+    .docs-card .arrow {
+      color: var(--accent4); font-size: 0.85rem;
+      float: right; margin-top: -1.2rem;
+    }
+
+    /* Syntax colors */
+    .kw { color: #c084fc; }
+    .fn { color: #60a5fa; }
+    .str { color: #6cf5c2; }
+    .cmt { color: #55556a; font-style: italic; }
+    .num { color: #fb923c; }
+    .tag { color: #f472b6; }
+    .attr { color: #60a5fa; }
+    .val { color: #6cf5c2; }
+
+    @media (max-width: 768px) {
+      .demo-hero { padding: 6rem 1.25rem 2rem; }
+      .demo-body { padding: 0 1.25rem 4rem; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .docs-grid { grid-template-columns: 1fr; }
+      .tab-btn { padding: 0.65rem 0.9rem; font-size: 0.72rem; }
+      .code-block pre { padding: 1rem; font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo" style="text-decoration:none;">Q.Morph</a>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav_home">首页</a>
+    <a href="blogs.html" data-i18n="nav_blog">博客</a>
+    <a href="demo.html" style="color:var(--accent4);">Demo</a>
+    <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
+  </div>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-overlay" id="mobile-overlay" onclick="closeMenu()">
+  <div class="mobile-menu" onclick="event.stopPropagation()">
+    <a href="index.html" data-i18n="nav_home">首页</a>
+    <a href="blogs.html" data-i18n="nav_blog">博客</a>
+    <a href="demo.html" style="color:var(--accent4);">Demo</a>
+    <button id="lang-toggle-m" class="lang-btn" onclick="toggleLang()" style="margin-top:0.5rem;">EN</button>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="demo-hero">
+  <h1><span>CaliforniaWellDone</span></h1>
+  <p style="color:var(--text-dim);font-size:1.05rem;max-width:520px;margin:0 auto;">
+    ElevenLabs Conversational AI Agent — deploy via React, React Native, Widget, Python, WebSocket, or WebRTC.
+  </p>
+  <div class="agent-id">agent_5501knj1p508e9r99smwrc12gxjw</div>
+</div>
+
+<div class="demo-body">
+
+  <!-- Live Demo -->
+  <div class="live-demo">
+    <div class="live-badge">Live Agent</div>
+    <h2>Try It Now</h2>
+    <p>Click the widget to start a voice conversation with the AI agent.</p>
+    <elevenlabs-convai agent-id="agent_5501knj1p508e9r99smwrc12gxjw"></elevenlabs-convai>
+  </div>
+
+  <!-- Integration Methods -->
+  <div class="tab-bar" id="tab-bar">
+    <button class="tab-btn active" data-tab="react">React</button>
+    <button class="tab-btn" data-tab="rn">React Native</button>
+    <button class="tab-btn" data-tab="widget">Widget</button>
+    <button class="tab-btn" data-tab="python">Python</button>
+    <button class="tab-btn" data-tab="ws">WebSocket</button>
+    <button class="tab-btn" data-tab="webrtc">WebRTC</button>
+  </div>
+
+  <div class="code-section">
+
+    <!-- React -->
+    <div class="tab-panel active" id="tab-react">
+      <div class="install-cmd">
+        <span class="prompt">$</span>
+        <span>npm install @elevenlabs/react</span>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code><span class="kw">import</span> { <span class="fn">useConversation</span> } <span class="kw">from</span> <span class="str">"@elevenlabs/react"</span>;
+
+<span class="kw">function</span> <span class="fn">Agent</span>() {
+  <span class="kw">const</span> conversation = <span class="fn">useConversation</span>({
+    <span class="fn">onConnect</span>: () =&gt; <span class="fn">console.log</span>(<span class="str">"Connected"</span>),
+    <span class="fn">onDisconnect</span>: () =&gt; <span class="fn">console.log</span>(<span class="str">"Disconnected"</span>),
+    <span class="fn">onMessage</span>: (message) =&gt; <span class="fn">console.log</span>(<span class="str">"Message:"</span>, message),
+    <span class="fn">onError</span>: (error) =&gt; <span class="fn">console.error</span>(<span class="str">"Error:"</span>, error),
+    <span class="fn">onModeChange</span>: (mode) =&gt; <span class="fn">console.log</span>(<span class="str">"Mode:"</span>, mode),
+  });
+
+  <span class="kw">const</span> <span class="fn">startConversation</span> = <span class="kw">async</span> () =&gt; {
+    <span class="kw">await</span> navigator.mediaDevices.<span class="fn">getUserMedia</span>({ audio: <span class="num">true</span> });
+    <span class="kw">await</span> conversation.<span class="fn">startSession</span>({
+      agentId: <span class="str">"agent_5501knj1p508e9r99smwrc12gxjw"</span>,
+      connectionType: <span class="str">"webrtc"</span>, <span class="cmt">// or "websocket"</span>
+    });
+  };
+
+  <span class="kw">return</span> (
+    &lt;<span class="tag">div</span>&gt;
+      &lt;<span class="tag">button</span> <span class="attr">onClick</span>={startConversation}&gt;Start&lt;/<span class="tag">button</span>&gt;
+      &lt;<span class="tag">button</span> <span class="attr">onClick</span>={() =&gt; conversation.<span class="fn">endSession</span>()}&gt;Stop&lt;/<span class="tag">button</span>&gt;
+      &lt;<span class="tag">p</span>&gt;Status: {conversation.status}&lt;/<span class="tag">p</span>&gt;
+      &lt;<span class="tag">p</span>&gt;Agent is {conversation.isSpeaking ? <span class="str">"speaking"</span> : <span class="str">"listening"</span>}&lt;/<span class="tag">p</span>&gt;
+    &lt;/<span class="tag">div</span>&gt;
+  );
+}</code></pre>
+      </div>
+      <div class="section-head">Key Features</div>
+      <div class="feat-grid">
+        <div class="feat-item"><span class="feat-dot">›</span><code>connectionType: "webrtc"</code> — lower latency (recommended)</div>
+        <div class="feat-item"><span class="feat-dot">›</span><code>sendUserMessage(text)</code> — send text messages</div>
+        <div class="feat-item"><span class="feat-dot">›</span><code>sendContextualUpdate(text)</code> — context without response</div>
+        <div class="feat-item"><span class="feat-dot">›</span><code>sendFeedback(bool)</code> — conversation feedback</div>
+        <div class="feat-item"><span class="feat-dot">›</span><code>setVolume({ volume })</code> — adjust output volume</div>
+        <div class="feat-item"><span class="feat-dot">›</span><code>getInputVolume()</code> — current audio levels</div>
+        <div class="feat-item"><span class="feat-dot">›</span><code>clientTools</code> — invoke client-side functions</div>
+        <div class="feat-item"><span class="feat-dot">›</span><code>overrides</code> — prompt, voice, language, firstMessage</div>
+      </div>
+    </div>
+
+    <!-- React Native -->
+    <div class="tab-panel" id="tab-rn">
+      <div class="install-cmd">
+        <span class="prompt">$</span>
+        <span>npm install @elevenlabs/react-native @livekit/react-native @livekit/react-native-webrtc livekit-client</span>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code><span class="kw">import</span> { <span class="fn">ElevenLabsProvider</span>, <span class="fn">useConversation</span> } <span class="kw">from</span> <span class="str">"@elevenlabs/react-native"</span>;
+
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    &lt;<span class="tag">ElevenLabsProvider</span>&gt;
+      &lt;<span class="tag">ConversationScreen</span> /&gt;
+    &lt;/<span class="tag">ElevenLabsProvider</span>&gt;
+  );
+}
+
+<span class="kw">function</span> <span class="fn">ConversationScreen</span>() {
+  <span class="kw">const</span> conversation = <span class="fn">useConversation</span>({
+    <span class="fn">onConnect</span>: () =&gt; <span class="fn">console.log</span>(<span class="str">"Connected"</span>),
+    <span class="fn">onDisconnect</span>: () =&gt; <span class="fn">console.log</span>(<span class="str">"Disconnected"</span>),
+    <span class="fn">onMessage</span>: (message) =&gt; <span class="fn">console.log</span>(<span class="str">"Message:"</span>, message),
+    <span class="fn">onError</span>: (error) =&gt; <span class="fn">console.error</span>(<span class="str">"Error:"</span>, error),
+  });
+
+  <span class="kw">const</span> <span class="fn">start</span> = <span class="kw">async</span> () =&gt; {
+    <span class="kw">await</span> conversation.<span class="fn">startSession</span>({
+      agentId: <span class="str">"agent_5501knj1p508e9r99smwrc12gxjw"</span>,
+    });
+  };
+
+  <span class="kw">return</span> (
+    &lt;<span class="tag">View</span>&gt;
+      &lt;<span class="tag">Button</span>
+        <span class="attr">title</span>={conversation.status === <span class="str">"connected"</span> ? <span class="str">"Stop"</span> : <span class="str">"Start"</span>}
+        <span class="attr">onPress</span>={conversation.status === <span class="str">"connected"</span>
+          ? () =&gt; conversation.<span class="fn">endSession</span>() : start}
+      /&gt;
+      &lt;<span class="tag">Text</span>&gt;Agent is {conversation.isSpeaking ? <span class="str">"speaking"</span> : <span class="str">"listening"</span>}&lt;/<span class="tag">Text</span>&gt;
+    &lt;/<span class="tag">View</span>&gt;
+  );
+}</code></pre>
+      </div>
+      <div class="code-note">
+        Requires <strong>Expo development builds</strong> (not compatible with Expo Go).
+        Configure microphone permissions in <code style="font-family:var(--mono);font-size:0.85em;background:var(--bg-elevated);padding:1px 5px;border-radius:3px;color:var(--accent4);">Info.plist</code> (iOS) and <code style="font-family:var(--mono);font-size:0.85em;background:var(--bg-elevated);padding:1px 5px;border-radius:3px;color:var(--accent4);">AndroidManifest.xml</code> (Android).
+      </div>
+    </div>
+
+    <!-- Widget -->
+    <div class="tab-panel" id="tab-widget">
+      <div class="section-head">NPM</div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code><span class="kw">import</span> <span class="str">"@elevenlabs/convai-widget"</span>;
+
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> &lt;<span class="tag">elevenlabs-convai</span> <span class="attr">agent-id</span>=<span class="str">"agent_5501knj1p508e9r99smwrc12gxjw"</span>&gt;&lt;/<span class="tag">elevenlabs-convai</span>&gt;;
+}</code></pre>
+      </div>
+      <div class="section-head">CDN (HTML)</div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>&lt;<span class="tag">script</span> <span class="attr">src</span>=<span class="str">"https://elevenlabs.io/convai-widget/index.js"</span> <span class="attr">async</span>&gt;&lt;/<span class="tag">script</span>&gt;
+&lt;<span class="tag">elevenlabs-convai</span> <span class="attr">agent-id</span>=<span class="str">"agent_5501knj1p508e9r99smwrc12gxjw"</span>&gt;&lt;/<span class="tag">elevenlabs-convai</span>&gt;</code></pre>
+      </div>
+      <div class="code-note">The CDN approach requires no build step — just paste two lines into any HTML page.</div>
+    </div>
+
+    <!-- Python -->
+    <div class="tab-panel" id="tab-python">
+      <div class="install-cmd">
+        <span class="prompt">$</span>
+        <span>pip install "elevenlabs[pyaudio]"</span>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code><span class="kw">import</span> os
+<span class="kw">import</span> signal
+<span class="kw">from</span> elevenlabs.client <span class="kw">import</span> <span class="fn">ElevenLabs</span>
+<span class="kw">from</span> elevenlabs.conversational_ai.conversation <span class="kw">import</span> <span class="fn">Conversation</span>
+<span class="kw">from</span> elevenlabs.conversational_ai.default_audio_interface <span class="kw">import</span> <span class="fn">DefaultAudioInterface</span>
+
+client = <span class="fn">ElevenLabs</span>(api_key=os.<span class="fn">getenv</span>(<span class="str">"ELEVENLABS_API_KEY"</span>))
+
+conversation = <span class="fn">Conversation</span>(
+    client,
+    agent_id=<span class="str">"agent_5501knj1p508e9r99smwrc12gxjw"</span>,
+    requires_auth=<span class="num">False</span>,
+    audio_interface=<span class="fn">DefaultAudioInterface</span>(),
+    callback_agent_response=<span class="kw">lambda</span> response: <span class="fn">print</span>(<span class="str">f"Agent: </span>{response}<span class="str">"</span>),
+    callback_agent_response_correction=<span class="kw">lambda</span> original, corrected:
+        <span class="fn">print</span>(<span class="str">f"Agent: </span>{original}<span class="str"> -&gt; </span>{corrected}<span class="str">"</span>),
+    callback_user_transcript=<span class="kw">lambda</span> transcript: <span class="fn">print</span>(<span class="str">f"User: </span>{transcript}<span class="str">"</span>),
+)
+
+conversation.<span class="fn">start_session</span>()
+signal.<span class="fn">signal</span>(signal.SIGINT, <span class="kw">lambda</span> sig, frame: conversation.<span class="fn">end_session</span>())
+conversation_id = conversation.<span class="fn">wait_for_session_end</span>()
+<span class="fn">print</span>(<span class="str">f"Conversation ID: </span>{conversation_id}<span class="str">"</span>)</code></pre>
+      </div>
+      <div class="code-note">
+        <strong>pyaudio</strong> may require system dependencies:<br>
+        macOS: <code style="font-family:var(--mono);font-size:0.85em;background:var(--bg-elevated);padding:1px 5px;border-radius:3px;color:var(--accent4);">brew install portaudio</code> &nbsp;
+        Debian/Ubuntu: <code style="font-family:var(--mono);font-size:0.85em;background:var(--bg-elevated);padding:1px 5px;border-radius:3px;color:var(--accent4);">sudo apt-get install libportaudio2 portaudio19-dev</code>
+      </div>
+    </div>
+
+    <!-- WebSocket -->
+    <div class="tab-panel" id="tab-ws">
+      <div class="section-head">Endpoint</div>
+      <div class="install-cmd" style="word-break:break-all;">
+        <span class="prompt">wss://</span>
+        <span>api.elevenlabs.io/v1/convai/conversation?agent_id=agent_5501knj1p508e9r99smwrc12gxjw</span>
+      </div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code><span class="kw">const</span> ws = <span class="kw">new</span> <span class="fn">WebSocket</span>(
+  <span class="str">"wss://api.elevenlabs.io/v1/convai/conversation?agent_id=agent_5501knj1p508e9r99smwrc12gxjw"</span>
+);
+
+ws.<span class="fn">onopen</span> = () =&gt; {
+  ws.<span class="fn">send</span>(JSON.<span class="fn">stringify</span>({
+    type: <span class="str">"conversation_initiation_client_data"</span>,
+  }));
+};
+
+ws.<span class="fn">onmessage</span> = (event) =&gt; {
+  <span class="kw">const</span> data = JSON.<span class="fn">parse</span>(event.data);
+
+  <span class="kw">switch</span> (data.type) {
+    <span class="kw">case</span> <span class="str">"user_transcript"</span>:
+      <span class="fn">console.log</span>(<span class="str">"User:"</span>, data.user_transcription_event.user_transcript);
+      <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="str">"agent_response"</span>:
+      <span class="fn">console.log</span>(<span class="str">"Agent:"</span>, data.agent_response_event.agent_response);
+      <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="str">"audio"</span>:
+      <span class="cmt">// data.audio_event.audio_base_64 — audio chunk</span>
+      <span class="cmt">// data.audio_event.alignment — character-level timing</span>
+      <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="str">"ping"</span>:
+      <span class="fn">setTimeout</span>(() =&gt; {
+        ws.<span class="fn">send</span>(JSON.<span class="fn">stringify</span>({
+          type: <span class="str">"pong"</span>,
+          event_id: data.ping_event.event_id,
+        }));
+      }, data.ping_event.ping_ms);
+      <span class="kw">break</span>;
+  }
+};
+
+<span class="cmt">// Send audio: ws.send(JSON.stringify({ user_audio_chunk: base64Data }))</span>
+<span class="cmt">// Context:    ws.send(JSON.stringify({ type: "contextual_update", text: "..." }))</span></code></pre>
+      </div>
+    </div>
+
+    <!-- WebRTC -->
+    <div class="tab-panel" id="tab-webrtc">
+      <div class="section-head">Server-Side — Obtain Token</div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code><span class="cmt">// Server-side: fetch a conversation token</span>
+<span class="kw">const</span> response = <span class="kw">await</span> <span class="fn">fetch</span>(
+  <span class="str">`https://api.elevenlabs.io/v1/convai/conversation/token?agent_id=agent_5501knj1p508e9r99smwrc12gxjw`</span>,
+  { headers: { <span class="str">"xi-api-key"</span>: process.env.ELEVENLABS_API_KEY } }
+);
+<span class="kw">const</span> { token } = <span class="kw">await</span> response.<span class="fn">json</span>();</code></pre>
+      </div>
+      <div class="section-head">Client-Side — Use Token</div>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code><span class="cmt">// React</span>
+conversation.<span class="fn">startSession</span>({
+  conversationToken: token,
+  connectionType: <span class="str">"webrtc"</span>,
+});
+
+<span class="cmt">// React Native</span>
+conversation.<span class="fn">startSession</span>({
+  conversationToken: token,
+});</code></pre>
+      </div>
+      <div class="code-note">
+        WebRTC provides the <strong>lowest latency</strong> for production voice conversations.
+        Also available for <strong>Kotlin</strong>, <strong>Flutter</strong>, and <strong>Swift</strong> SDKs.
+      </div>
+    </div>
+
+  </div><!-- /code-section -->
+
+  <!-- Documentation -->
+  <div class="docs-grid">
+    <a href="https://elevenlabs.io/docs/eleven-agents" target="_blank" rel="noopener" class="docs-card">
+      <h4>Documentation</h4>
+      <p>Full ElevenLabs Conversational AI guide</p>
+      <span class="arrow">→</span>
+    </a>
+    <a href="https://elevenlabs.io/docs/api-reference/introduction" target="_blank" rel="noopener" class="docs-card">
+      <h4>API Reference</h4>
+      <p>Complete API endpoints and schemas</p>
+      <span class="arrow">→</span>
+    </a>
+    <a href="https://elevenlabs.io/docs/api-reference/agents/get" target="_blank" rel="noopener" class="docs-card">
+      <h4>Agents API</h4>
+      <p>Manage and configure agents</p>
+      <span class="arrow">→</span>
+    </a>
+    <a href="https://elevenlabs.io/docs/api-reference/conversations/get" target="_blank" rel="noopener" class="docs-card">
+      <h4>Conversations API</h4>
+      <p>Query conversation history and transcripts</p>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <div style="margin-bottom:0.5rem;">
+    <a href="index.html" class="logo" style="font-family:var(--mono);font-weight:700;font-size:1rem;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;">Q.Morph</a>
+  </div>
+  CaliforniaWellDone — ElevenLabs Conversational AI Demo<br>
+  <span style="color:var(--text-muted);">© 2026 QMorph. Confidential.</span>
+</footer>
+
+<script src="https://elevenlabs.io/convai-widget/index.js" async></script>
+<script src="app.js"></script>
+<script>
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+function copyCode(btn) {
+  const pre = btn.parentElement.querySelector('pre');
+  const text = pre.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+  });
+}
+</script>
+</body>
+</html>
