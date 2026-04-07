@@ -28,10 +28,9 @@
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     .demo-hero p {
-      color: var(--text-dim); font-size: 1rem; max-width: 440px; margin: 0 auto;
+      color: var(--text-dim); font-size: 1rem; max-width: 460px; margin: 0 auto;
     }
 
-    /* Main layout */
     .demo-stage {
       max-width: 1060px; margin: 0 auto;
       padding: 2rem 2rem 6rem;
@@ -63,7 +62,7 @@
       background: #000; border-radius: 0 0 16px 16px;
       margin: 0 auto;
     }
-    .ph-status {
+    .ph-status-bar {
       display: flex; justify-content: space-between; align-items: center;
       padding: 10px 20px 6px;
       font-size: 0.72rem; font-weight: 600; color: var(--text);
@@ -78,9 +77,13 @@
     .ph-avatar-ring {
       width: 96px; height: 96px;
       border-radius: 50%;
-      border: 3px solid var(--accent4);
+      border: 3px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 1.25rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .ph-avatar-ring.active {
+      border-color: var(--accent4);
       animation: ring-pulse 2s ease infinite;
     }
     @keyframes ring-pulse {
@@ -98,11 +101,13 @@
       font-size: 1.15rem; font-weight: 700; margin-bottom: 0.2rem;
       letter-spacing: -0.3px;
     }
-    .ph-timer {
+    .ph-call-status {
       font-family: var(--mono); font-size: 0.82rem;
-      color: var(--accent4); margin-bottom: 1.5rem;
+      color: var(--text-muted); margin-bottom: 1.5rem;
+      min-height: 1.4em;
     }
-    .ph-timer .dot {
+    .ph-call-status.connected { color: var(--accent4); }
+    .ph-call-status .dot {
       display: inline-block; width: 6px; height: 6px;
       border-radius: 50%; background: var(--accent4);
       margin-right: 6px; vertical-align: middle;
@@ -112,17 +117,19 @@
       0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
     }
 
-    /* Mini waveform */
+    /* Waveform */
     .ph-wave {
       display: flex; gap: 3px; align-items: center;
       justify-content: center;
-      height: 32px; margin-bottom: 1.5rem;
+      height: 36px; margin-bottom: 1.5rem;
+      opacity: 0; transition: opacity 0.3s;
     }
+    .ph-wave.active { opacity: 1; }
     .ph-wave-bar {
       width: 3px; border-radius: 2px;
       background: var(--accent4); opacity: 0.6;
-      animation: wave-bar 1.2s ease-in-out infinite;
     }
+    .ph-wave.active .ph-wave-bar { animation: wave-bar 1.2s ease-in-out infinite; }
     .ph-wave-bar:nth-child(1) { height: 10px; animation-delay: 0s; }
     .ph-wave-bar:nth-child(2) { height: 18px; animation-delay: 0.1s; }
     .ph-wave-bar:nth-child(3) { height: 26px; animation-delay: 0.2s; }
@@ -136,6 +143,7 @@
       0%, 100% { transform: scaleY(0.4); }
       50% { transform: scaleY(1); }
     }
+    .ph-wave.listening .ph-wave-bar { background: var(--accent3); }
 
     /* Phone buttons */
     .ph-actions {
@@ -143,14 +151,31 @@
       margin-top: auto; padding-bottom: 0.5rem;
     }
     .ph-btn {
-      width: 52px; height: 52px; border-radius: 50%;
+      width: 56px; height: 56px; border-radius: 50%;
       border: none; display: flex;
       align-items: center; justify-content: center;
-      font-size: 1.3rem; cursor: default;
+      font-size: 1.3rem; cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
     }
+    .ph-btn:active { transform: scale(0.92); }
+    .ph-btn-start {
+      background: #22c55e; box-shadow: 0 4px 20px rgba(34,197,94,0.4);
+      width: 72px; height: 72px; font-size: 1.6rem;
+    }
+    .ph-btn-start:hover { box-shadow: 0 6px 28px rgba(34,197,94,0.5); }
+    .ph-btn-end {
+      background: #ef4444; box-shadow: 0 4px 20px rgba(239,68,68,0.3);
+    }
+    .ph-btn-end:hover { box-shadow: 0 6px 28px rgba(239,68,68,0.4); }
     .ph-btn-mute { background: var(--bg-elevated); border: 1px solid var(--border); }
-    .ph-btn-end { background: #ef4444; }
-    .ph-btn-speaker { background: var(--bg-elevated); border: 1px solid var(--border); }
+
+    /* States */
+    .state-idle .ph-actions-active,
+    .state-connecting .ph-actions-active,
+    .state-active .ph-actions-idle { display: none !important; }
+    .state-idle .ph-actions-idle,
+    .state-active .ph-actions-active { display: flex !important; }
+    .state-connecting .ph-actions-idle { display: flex !important; }
 
     /* Transcript panel */
     .transcript-panel {
@@ -170,36 +195,49 @@
     .transcript-live {
       font-family: var(--mono); font-size: 0.68rem;
       text-transform: uppercase; letter-spacing: 1.5px;
-      color: var(--accent4);
+      color: var(--text-muted);
       display: flex; align-items: center; gap: 6px;
+      transition: color 0.3s;
     }
+    .transcript-live.on { color: var(--accent4); }
     .transcript-live::before {
       content: ''; width: 6px; height: 6px;
-      border-radius: 50%; background: var(--accent4);
+      border-radius: 50%; background: currentColor;
+      transition: background 0.3s;
+    }
+    .transcript-live.on::before {
       animation: pulse-dot 1.2s ease infinite;
     }
+
     .transcript-feed {
-      display: flex; flex-direction: column; gap: 1rem;
-      flex: 1;
+      display: flex; flex-direction: column; gap: 0.75rem;
+      flex: 1; overflow-y: auto; max-height: 520px;
+      padding-right: 0.5rem;
     }
+    .transcript-empty {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      text-align: center; color: var(--text-muted); font-size: 0.92rem;
+      padding: 3rem 1rem;
+    }
+    .transcript-empty span { display: block; margin-top: 0.5rem; font-size: 0.82rem; }
 
     /* Transcript bubbles */
     .t-bubble {
-      display: flex; gap: 0.75rem;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      display: flex; gap: 0.6rem;
+      animation: bubbleIn 0.35s ease both;
     }
-    .t-bubble.show {
-      opacity: 1; transform: translateY(0);
+    @keyframes bubbleIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .t-bubble.agent { align-self: flex-start; max-width: 88%; }
-    .t-bubble.caller { align-self: flex-end; flex-direction: row-reverse; max-width: 88%; }
+    .t-bubble.agent { align-self: flex-start; max-width: 90%; }
+    .t-bubble.caller { align-self: flex-end; flex-direction: row-reverse; max-width: 90%; }
 
     .t-avatar {
-      width: 32px; height: 32px; border-radius: 50%;
+      width: 28px; height: 28px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+      font-size: 0.68rem; font-weight: 700; flex-shrink: 0;
+      margin-top: 2px;
     }
     .t-bubble.agent .t-avatar {
       background: rgba(251,146,60,0.15); color: var(--accent4);
@@ -207,11 +245,10 @@
     .t-bubble.caller .t-avatar {
       background: rgba(96,165,250,0.15); color: var(--accent3);
     }
-
     .t-content {
-      padding: 0.7rem 1rem;
-      border-radius: 14px;
-      font-size: 0.88rem; line-height: 1.6;
+      padding: 0.55rem 0.85rem;
+      border-radius: 12px;
+      font-size: 0.88rem; line-height: 1.55;
     }
     .t-bubble.agent .t-content {
       background: var(--bg-elevated);
@@ -225,43 +262,16 @@
       border-bottom-right-radius: 4px;
       color: var(--text-dim);
     }
+    .t-bubble.caller.interim .t-content {
+      opacity: 0.5; font-style: italic;
+    }
     .t-label {
-      font-family: var(--mono); font-size: 0.68rem;
+      font-family: var(--mono); font-size: 0.62rem;
       text-transform: uppercase; letter-spacing: 1px;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.15rem;
     }
     .t-bubble.agent .t-label { color: var(--accent4); }
     .t-bubble.caller .t-label { color: var(--accent3); }
-
-    .t-typing {
-      display: inline-flex; gap: 4px; padding: 4px 0;
-    }
-    .t-typing span {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--text-muted);
-      animation: typing 1.2s ease infinite;
-    }
-    .t-typing span:nth-child(2) { animation-delay: 0.2s; }
-    .t-typing span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes typing {
-      0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
-      30% { opacity: 1; transform: translateY(-3px); }
-    }
-
-    /* Replay */
-    .replay-btn {
-      display: none;
-      margin: 2rem auto 0;
-      background: var(--bg-elevated); border: 1px solid var(--border);
-      color: var(--text-dim); font-family: var(--font);
-      font-size: 0.88rem; padding: 0.7rem 1.8rem;
-      border-radius: 30px; cursor: pointer;
-      transition: all 0.2s;
-    }
-    .replay-btn:hover {
-      border-color: var(--accent4); color: var(--accent4);
-    }
-    .replay-btn.show { display: inline-flex; align-items: center; gap: 8px; }
 
     @media (max-width: 860px) {
       .demo-stage {
@@ -275,9 +285,10 @@
         padding: 10px;
         border-radius: 34px;
       }
-      .demo-screen { min-height: 500px; border-radius: 24px; }
+      .demo-screen { min-height: 480px; border-radius: 24px; }
       .ph-notch { width: 80px; height: 24px; border-radius: 0 0 12px 12px; }
       .transcript-panel { min-height: auto; }
+      .transcript-feed { max-height: 400px; }
       .demo-hero { padding: 6rem 1.25rem 1.5rem; }
     }
   </style>
@@ -307,40 +318,41 @@
 
 <div class="demo-hero">
   <h1><span>CaliforniaWellDone</span></h1>
-  <p>AI receptionist handling a live incoming call — watch the real-time transcript unfold.</p>
+  <p>Press the call button to start a live voice conversation with the AI receptionist. Transcript streams in real time.</p>
 </div>
 
 <div class="demo-stage">
 
   <!-- Phone -->
   <div class="demo-phone">
-    <div class="demo-screen">
+    <div class="demo-screen state-idle" id="phone-screen">
       <div class="ph-notch"></div>
-      <div class="ph-status">
+      <div class="ph-status-bar">
         <span>9:41</span>
         <span style="letter-spacing:1px;">●●●●</span>
       </div>
       <div class="ph-call">
-        <div class="ph-avatar-ring">
+        <div class="ph-avatar-ring" id="avatar-ring">
           <div class="ph-avatar-inner">🍽️</div>
         </div>
         <div class="ph-name">California Well Done</div>
-        <div class="ph-timer"><span class="dot"></span><span id="call-timer">00:00</span></div>
-        <div class="ph-wave">
-          <div class="ph-wave-bar"></div>
-          <div class="ph-wave-bar"></div>
-          <div class="ph-wave-bar"></div>
-          <div class="ph-wave-bar"></div>
-          <div class="ph-wave-bar"></div>
-          <div class="ph-wave-bar"></div>
-          <div class="ph-wave-bar"></div>
-          <div class="ph-wave-bar"></div>
+        <div class="ph-call-status" id="call-status">Tap to call</div>
+
+        <div class="ph-wave" id="ph-wave">
+          <div class="ph-wave-bar"></div><div class="ph-wave-bar"></div>
+          <div class="ph-wave-bar"></div><div class="ph-wave-bar"></div>
+          <div class="ph-wave-bar"></div><div class="ph-wave-bar"></div>
+          <div class="ph-wave-bar"></div><div class="ph-wave-bar"></div>
           <div class="ph-wave-bar"></div>
         </div>
-        <div class="ph-actions">
-          <button class="ph-btn ph-btn-mute">🔇</button>
-          <button class="ph-btn ph-btn-end">📞</button>
-          <button class="ph-btn ph-btn-speaker">🔊</button>
+
+        <div class="ph-actions ph-actions-idle">
+          <button class="ph-btn ph-btn-start" id="btn-start" onclick="startCall()">📞</button>
+        </div>
+        <div class="ph-actions ph-actions-active" style="display:none;">
+          <button class="ph-btn ph-btn-mute" id="btn-mute" onclick="toggleMute()">🔇</button>
+          <button class="ph-btn ph-btn-end" onclick="endCall()">📞</button>
+          <button class="ph-btn ph-btn-mute">🔊</button>
         </div>
       </div>
     </div>
@@ -350,10 +362,13 @@
   <div class="transcript-panel">
     <div class="transcript-header">
       <h2>Live Transcript</h2>
-      <div class="transcript-live">Streaming</div>
+      <div class="transcript-live" id="stream-badge">Idle</div>
     </div>
-    <div class="transcript-feed" id="transcript-feed"></div>
-    <button class="replay-btn" id="replay-btn" onclick="startDemo()">↻ Replay</button>
+    <div class="transcript-feed" id="transcript-feed">
+      <div class="transcript-empty" id="empty-msg">
+        Press the green call button to begin<span>Microphone access required</span>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -366,91 +381,257 @@
   <span style="color:var(--text-muted);">Powered by ElevenLabs Conversational AI</span>
 </footer>
 
-<elevenlabs-convai agent-id="agent_5501knj1p508e9r99smwrc12gxjw"></elevenlabs-convai>
-<script src="https://elevenlabs.io/convai-widget/index.js" async></script>
 <script src="app.js"></script>
 <script>
-const SCRIPT = [
-  { role:'agent',  text:"Hello, thank you for calling California Well Done! How can I help you today?" },
-  { role:'caller', text:"Hi, I'd like to make a reservation for tonight." },
-  { role:'agent',  text:"Of course! How many guests will be dining tonight?" },
-  { role:'caller', text:"It'll be 4 of us, around 7 PM if possible." },
-  { role:'agent',  text:"Let me check availability… Great news! I have a table for 4 at 7:00 PM. May I have your name please?" },
-  { role:'caller', text:"Sarah Chen." },
-  { role:'agent',  text:"Perfect, Sarah! Your reservation is confirmed — table for 4 tonight at 7:00 PM. You'll receive a confirmation text shortly. Is there anything else I can help with?" },
-  { role:'caller', text:"Do you have vegetarian options?" },
-  { role:'agent',  text:"Absolutely! We have several vegetarian dishes including our house garden salad, grilled veggie burger, and pasta primavera. Our chef can also accommodate vegan and gluten-free requests." },
-  { role:'caller', text:"Great, that's all. Thank you!" },
-  { role:'agent',  text:"You're welcome, Sarah! We look forward to seeing you tonight. Have a wonderful day!" },
-];
+const AGENT_ID = 'agent_5501knj1p508e9r99smwrc12gxjw';
+const WS_URL = `wss://api.elevenlabs.io/v1/convai/conversation?agent_id=${AGENT_ID}`;
 
-let timerInterval, timerSec = 0, demoTimeout = [];
+let ws = null, audioCtx = null, mediaStream = null, processorNode = null;
+let timerInterval = null, timerSec = 0;
+let nextPlayTime = 0, isMuted = false;
+let currentUserBubble = null;
 
-function fmtTime(s) {
-  const m = String(Math.floor(s / 60)).padStart(2, '0');
-  const ss = String(s % 60).padStart(2, '0');
-  return m + ':' + ss;
+/* ---- UI helpers ---- */
+const $ = (id) => document.getElementById(id);
+
+function setPhoneState(state) {
+  const screen = $('phone-screen');
+  screen.className = 'demo-screen state-' + state;
 }
 
-function startDemo() {
-  const feed = document.getElementById('transcript-feed');
-  const btn = document.getElementById('replay-btn');
-  feed.innerHTML = '';
-  btn.classList.remove('show');
-  demoTimeout.forEach(t => clearTimeout(t));
-  demoTimeout = [];
-  clearInterval(timerInterval);
+function setCallStatus(text, active) {
+  const el = $('call-status');
+  el.className = 'ph-call-status' + (active ? ' connected' : '');
+  el.innerHTML = active ? '<span class="dot"></span>' + text : text;
+}
+
+function setWave(mode) {
+  const w = $('ph-wave');
+  w.className = 'ph-wave' + (mode ? ' active' : '') + (mode === 'listening' ? ' listening' : '');
+}
+
+function startTimer() {
   timerSec = 0;
-  document.getElementById('call-timer').textContent = '00:00';
   timerInterval = setInterval(() => {
     timerSec++;
-    document.getElementById('call-timer').textContent = fmtTime(timerSec);
+    const m = String(Math.floor(timerSec / 60)).padStart(2, '0');
+    const s = String(timerSec % 60).padStart(2, '0');
+    setCallStatus(m + ':' + s, true);
   }, 1000);
-
-  let delay = 800;
-  SCRIPT.forEach((line, i) => {
-    const typingDelay = delay;
-    delay += 600;
-    const showDelay = delay;
-    const readTime = Math.max(1200, line.text.length * 35);
-    delay += readTime;
-
-    demoTimeout.push(setTimeout(() => {
-      const bubble = document.createElement('div');
-      bubble.className = 't-bubble ' + line.role;
-      const avatarLabel = line.role === 'agent' ? 'AI' : 'C';
-      bubble.innerHTML =
-        '<div class="t-avatar">' + avatarLabel + '</div>' +
-        '<div class="t-content">' +
-          '<div class="t-label">' + (line.role === 'agent' ? 'Agent' : 'Caller') + '</div>' +
-          '<div class="t-typing"><span></span><span></span><span></span></div>' +
-        '</div>';
-      feed.appendChild(bubble);
-      requestAnimationFrame(() => bubble.classList.add('show'));
-      feed.scrollTop = feed.scrollHeight;
-    }, typingDelay));
-
-    demoTimeout.push(setTimeout(() => {
-      const bubbles = feed.querySelectorAll('.t-bubble');
-      const last = bubbles[bubbles.length - 1];
-      if (last) {
-        const content = last.querySelector('.t-content');
-        const label = line.role === 'agent' ? 'Agent' : 'Caller';
-        content.innerHTML = '<div class="t-label">' + label + '</div>' + line.text;
-      }
-      feed.scrollTop = feed.scrollHeight;
-    }, showDelay));
-  });
-
-  demoTimeout.push(setTimeout(() => {
-    clearInterval(timerInterval);
-    btn.classList.add('show');
-  }, delay + 500));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  setTimeout(startDemo, 600);
-});
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function addBubble(role, text, isInterim) {
+  const feed = $('transcript-feed');
+  const empty = $('empty-msg');
+  if (empty) empty.remove();
+
+  const bubble = document.createElement('div');
+  bubble.className = 't-bubble ' + role + (isInterim ? ' interim' : '');
+  const label = role === 'agent' ? 'Agent' : 'You';
+  const avatar = role === 'agent' ? 'AI' : 'U';
+  bubble.innerHTML =
+    '<div class="t-avatar">' + avatar + '</div>' +
+    '<div class="t-content"><div class="t-label">' + label + '</div>' +
+    '<span class="t-text">' + text + '</span></div>';
+  feed.appendChild(bubble);
+  feed.scrollTop = feed.scrollHeight;
+  return bubble;
+}
+
+/* ---- Audio playback ---- */
+function playPCM(base64) {
+  if (!audioCtx) return;
+  const bin = atob(base64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+
+  const int16 = new Int16Array(bytes.buffer);
+  const float32 = new Float32Array(int16.length);
+  for (let i = 0; i < int16.length; i++) float32[i] = int16[i] / 32768.0;
+
+  const buf = audioCtx.createBuffer(1, float32.length, 16000);
+  buf.getChannelData(0).set(float32);
+
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  src.connect(audioCtx.destination);
+
+  const now = audioCtx.currentTime;
+  if (nextPlayTime < now) nextPlayTime = now;
+  src.start(nextPlayTime);
+  nextPlayTime += buf.duration;
+}
+
+/* ---- Mic capture ---- */
+function startCapture() {
+  const source = audioCtx.createMediaStreamSource(mediaStream);
+  processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
+  source.connect(processorNode);
+  processorNode.connect(audioCtx.destination);
+
+  const srcRate = audioCtx.sampleRate;
+  const tgtRate = 16000;
+
+  processorNode.onaudioprocess = (e) => {
+    if (!ws || ws.readyState !== WebSocket.OPEN || isMuted) return;
+
+    const input = e.inputBuffer.getChannelData(0);
+    let pcm;
+    if (srcRate !== tgtRate) {
+      const ratio = srcRate / tgtRate;
+      const len = Math.floor(input.length / ratio);
+      pcm = new Float32Array(len);
+      for (let i = 0; i < len; i++) pcm[i] = input[Math.floor(i * ratio)];
+    } else {
+      pcm = input;
+    }
+
+    const int16 = new Int16Array(pcm.length);
+    for (let i = 0; i < pcm.length; i++) {
+      const s = Math.max(-1, Math.min(1, pcm[i]));
+      int16[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+    }
+
+    const u8 = new Uint8Array(int16.buffer);
+    let bin = '';
+    for (let i = 0; i < u8.length; i++) bin += String.fromCharCode(u8[i]);
+    ws.send(JSON.stringify({ user_audio_chunk: btoa(bin) }));
+  };
+}
+
+/* ---- WebSocket ---- */
+function handleMessage(event) {
+  const data = JSON.parse(event.data);
+
+  switch (data.type) {
+    case 'conversation_initiation_metadata':
+      startTimer();
+      setWave('listening');
+      break;
+
+    case 'user_transcript': {
+      const evt = data.user_transcription_event;
+      const text = evt.user_transcript;
+      if (!text) break;
+      if (currentUserBubble && !evt.is_final) {
+        currentUserBubble.querySelector('.t-text').textContent = text;
+        $('transcript-feed').scrollTop = $('transcript-feed').scrollHeight;
+      } else if (currentUserBubble && evt.is_final) {
+        currentUserBubble.querySelector('.t-text').textContent = text;
+        currentUserBubble.classList.remove('interim');
+        currentUserBubble = null;
+      } else {
+        currentUserBubble = addBubble('caller', text, !evt.is_final);
+        if (evt.is_final) currentUserBubble = null;
+      }
+      break;
+    }
+
+    case 'agent_response':
+      addBubble('agent', data.agent_response_event.agent_response);
+      setWave('speaking');
+      break;
+
+    case 'audio':
+      playPCM(data.audio_event.audio_base_64);
+      setWave('speaking');
+      break;
+
+    case 'ping':
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'pong',
+          event_id: data.ping_event.event_id,
+        }));
+      }
+      break;
+
+    case 'interruption':
+      nextPlayTime = 0;
+      setWave('listening');
+      break;
+  }
+}
+
+/* ---- Call lifecycle ---- */
+async function startCall() {
+  try {
+    setPhoneState('connecting');
+    setCallStatus('Connecting…', false);
+
+    mediaStream = await navigator.mediaDevices.getUserMedia({
+      audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true }
+    });
+
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    nextPlayTime = 0;
+    currentUserBubble = null;
+
+    $('transcript-feed').innerHTML = '';
+
+    ws = new WebSocket(WS_URL);
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ type: 'conversation_initiation_client_data' }));
+      startCapture();
+      setPhoneState('active');
+      $('avatar-ring').classList.add('active');
+      setCallStatus('00:00', true);
+      $('stream-badge').textContent = 'Streaming';
+      $('stream-badge').classList.add('on');
+    };
+
+    ws.onmessage = handleMessage;
+
+    ws.onerror = () => {
+      setCallStatus('Connection error', false);
+      endCall();
+    };
+
+    ws.onclose = () => {
+      endCall();
+    };
+
+  } catch (err) {
+    setPhoneState('idle');
+    setCallStatus('Microphone denied', false);
+    setTimeout(() => setCallStatus('Tap to call', false), 2000);
+  }
+}
+
+function endCall() {
+  if (processorNode) { processorNode.disconnect(); processorNode = null; }
+  if (mediaStream) { mediaStream.getTracks().forEach(t => t.stop()); mediaStream = null; }
+  if (ws && ws.readyState === WebSocket.OPEN) ws.close();
+  ws = null;
+  if (audioCtx) { audioCtx.close().catch(() => {}); audioCtx = null; }
+  nextPlayTime = 0;
+  stopTimer();
+  setPhoneState('idle');
+  setCallStatus('Call ended · ' + fmtTime(timerSec), false);
+  $('avatar-ring').classList.remove('active');
+  setWave(false);
+  $('stream-badge').textContent = 'Ended';
+  $('stream-badge').classList.remove('on');
+  isMuted = false;
+  const muteBtn = $('btn-mute');
+  if (muteBtn) muteBtn.textContent = '🔇';
+  setTimeout(() => setCallStatus('Tap to call', false), 3000);
+}
+
+function toggleMute() {
+  isMuted = !isMuted;
+  $('btn-mute').textContent = isMuted ? '🔈' : '🔇';
+}
+
+function fmtTime(s) {
+  return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+}
 </script>
 </body>
 </html>
