@@ -299,8 +299,8 @@
   <a href="index.html" class="logo" style="text-decoration:none;">Q.Morph</a>
   <div class="nav-links">
     <a href="index.html" data-i18n="nav_home">首页</a>
-    <a href="blogs.html" data-i18n="nav_blog">博客</a>
-    <a href="demo.html" style="color:var(--accent4);">Demo</a>
+    <a href="demo.html" class="nav-cta" style="color:var(--accent4);" data-i18n="nav_demo">体验 Demo</a>
+    <a href="blogs.html" class="nav-pill" data-i18n="nav_blog">博客</a>
     <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
   </div>
   <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
@@ -310,8 +310,8 @@
 <div class="mobile-overlay" id="mobile-overlay" onclick="closeMenu()">
   <div class="mobile-menu" onclick="event.stopPropagation()">
     <a href="index.html" data-i18n="nav_home">首页</a>
+    <a href="demo.html" class="mobile-cta" style="color:var(--accent4);" data-i18n="nav_demo">体验 Demo</a>
     <a href="blogs.html" data-i18n="nav_blog">博客</a>
-    <a href="demo.html" style="color:var(--accent4);">Demo</a>
     <button id="lang-toggle-m" class="lang-btn" onclick="toggleLang()" style="margin-top:0.5rem;">EN</button>
   </div>
 </div>
@@ -518,8 +518,23 @@ function startCapture() {
 }
 
 /* ---- WebSocket ---- */
+function extractUserTranscript(data) {
+  const evt = data.user_transcription_event || data.user_transcript_event || {};
+  return {
+    text: evt.user_transcript || evt.transcript || evt.text || '',
+    isFinal: evt.is_final !== undefined ? evt.is_final : true,
+  };
+}
+
+function extractAgentResponse(data) {
+  const evt = data.agent_response_event || data.agent_response || {};
+  return evt.agent_response || evt.response || evt.text ||
+         (typeof data.agent_response_event === 'string' ? data.agent_response_event : '');
+}
+
 function handleMessage(event) {
   const data = JSON.parse(event.data);
+  console.log('[ElevenLabs]', data.type, data);
 
   switch (data.type) {
     case 'conversation_initiation_metadata':
@@ -528,27 +543,28 @@ function handleMessage(event) {
       break;
 
     case 'user_transcript': {
-      const evt = data.user_transcription_event;
-      const text = evt.user_transcript;
+      const { text, isFinal } = extractUserTranscript(data);
       if (!text) break;
-      if (currentUserBubble && !evt.is_final) {
+      if (currentUserBubble && !isFinal) {
         currentUserBubble.querySelector('.t-text').textContent = text;
         $('transcript-feed').scrollTop = $('transcript-feed').scrollHeight;
-      } else if (currentUserBubble && evt.is_final) {
+      } else if (currentUserBubble && isFinal) {
         currentUserBubble.querySelector('.t-text').textContent = text;
         currentUserBubble.classList.remove('interim');
         currentUserBubble = null;
       } else {
-        currentUserBubble = addBubble('caller', text, !evt.is_final);
-        if (evt.is_final) currentUserBubble = null;
+        currentUserBubble = addBubble('caller', text, !isFinal);
+        if (isFinal) currentUserBubble = null;
       }
       break;
     }
 
-    case 'agent_response':
-      addBubble('agent', data.agent_response_event.agent_response);
+    case 'agent_response': {
+      const agentText = extractAgentResponse(data);
+      if (agentText) addBubble('agent', agentText);
       setWave('speaking');
       break;
+    }
 
     case 'audio':
       agentSpeaking = true;

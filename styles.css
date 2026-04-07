@@ -127,6 +127,22 @@ nav .nav-links a {
   transition: color 0.3s;
 }
 nav .nav-links a:hover { color: var(--accent); }
+.nav-cta {
+  background: linear-gradient(135deg, #fb923c, #f472b6) !important;
+  color: #fff !important;
+  padding: 7px 20px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  border: none;
+  box-shadow: 0 2px 12px rgba(251,146,60,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(251,146,60,0.45);
+}
 .nav-pill {
   background: var(--accent-dim);
   color: var(--accent) !important;
@@ -198,6 +214,16 @@ nav .nav-links a:hover { color: var(--accent); }
 }
 .mobile-menu a:hover,
 .mobile-menu a:active { background: var(--accent-dim); color: var(--accent); }
+.mobile-menu a.mobile-cta {
+  background: linear-gradient(135deg, #fb923c, #f472b6);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  border-radius: 12px;
+  margin-top: 0.25rem;
+}
+.mobile-menu a.mobile-cta:hover,
+.mobile-menu a.mobile-cta:active { background: linear-gradient(135deg, #f97316, #ec4899); color: #fff; }
 
 /* Hero */
 .hero {

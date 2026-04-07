@@ -19,7 +19,7 @@
     <a href="#step4" data-i18n="nav_serve">服务</a>
     <a href="#step5" data-i18n="nav_cal">日程</a>
     <a href="#step6" data-i18n="nav_report">报告</a>
-    <a href="#tech" class="nav-pill" data-i18n="nav_tech">技术栈</a>
+    <a href="demo.html" class="nav-cta" data-i18n="nav_demo">体验 Demo</a>
     <a href="blogs.html" class="nav-pill" data-i18n="nav_blog">博客</a>
     <button id="lang-toggle" class="lang-btn" onclick="toggleLang()">EN</button>
   </div>
@@ -37,7 +37,7 @@
     <a href="#step4" onclick="closeMenu()" data-i18n="nav_serve">服务</a>
     <a href="#step5" onclick="closeMenu()" data-i18n="nav_cal">日程</a>
     <a href="#step6" onclick="closeMenu()" data-i18n="nav_report">报告</a>
-    <a href="#tech" onclick="closeMenu()" data-i18n="nav_tech">技术栈</a>
+    <a href="demo.html" class="mobile-cta" data-i18n="nav_demo">体验 Demo</a>
     <a href="blogs.html" data-i18n="nav_blog">博客</a>
     <button id="lang-toggle-m" class="lang-btn" onclick="toggleLang()" style="margin-top:0.5rem;">EN</button>
   </div>
@@ -580,42 +580,6 @@ If the caller has a dental emergency, ask about severity. If urgent, provide the
     </div>
   </div>
 </div>
-
-<!-- TECH STACK -->
-<section id="tech">
-  <div class="section-label">Tech Stack</div>
-  <div class="section-title" data-i18n="tech_title">技术选型</div>
-  <div class="section-desc" data-i18n="tech_desc">基于成熟的云原生架构与 AI 基础设施构建。</div>
-  <div class="tech-grid">
-    <div class="tech-item"><span class="tech-icon">🧠</span>GPT-4o / Claude — LLM</div>
-    <div class="tech-item"><span class="tech-icon">🗣️</span>Deepgram — STT</div>
-    <div class="tech-item"><span class="tech-icon">🔊</span>ElevenLabs — TTS</div>
-    <div class="tech-item"><span class="tech-icon">📞</span>Twilio — PSTN/SIP</div>
-    <div class="tech-item"><span class="tech-icon">⚡</span>LiveKit — WebRTC</div>
-    <div class="tech-item"><span class="tech-icon">📅</span>Google Calendar API</div>
-    <div class="tech-item"><span class="tech-icon">🗄️</span>PostgreSQL + Redis</div>
-    <div class="tech-item"><span class="tech-icon">☁️</span>AWS / Vercel</div>
-    <div class="tech-item"><span class="tech-icon">🐍</span>Python / FastAPI</div>
-    <div class="tech-item"><span class="tech-icon">⚛️</span>Next.js / React</div>
-    <div class="tech-item"><span class="tech-icon">🔐</span><span data-i18n="tech_auth">Auth0 — 身份认证</span></div>
-    <div class="tech-item"><span class="tech-icon">📈</span><span data-i18n="tech_analytics">PostHog — 数据分析</span></div>
-  </div>
-
-  <div class="report-card" style="margin-top:2rem;">
-    <h3 style="font-size:1.1rem;margin-bottom:1.5rem;" data-i18n="api_title">API 接口概览</h3>
-    <table class="spec-table">
-      <thead><tr><th data-i18n="api_endpoint">端点</th><th data-i18n="api_method">方法</th><th data-i18n="api_desc_th">说明</th></tr></thead>
-      <tbody>
-        <tr><td><code>/api/onboard</code></td><td>POST</td><td data-i18n="api_d1">提交 SMB 多轮对话采集数据</td></tr>
-        <tr><td><code>/api/agent/build</code></td><td>POST</td><td data-i18n="api_d2">触发 Voice Agent 自动构建</td></tr>
-        <tr><td><code>/api/agent/:id/publish</code></td><td>PUT</td><td data-i18n="api_d3">发布 Agent 并绑定 PSTN 号码</td></tr>
-        <tr><td><code>/api/calls/webhook</code></td><td>POST</td><td data-i18n="api_d4">Twilio 来电 Webhook</td></tr>
-        <tr><td><code>/api/calendar/:id</code></td><td>GET/PUT</td><td data-i18n="api_d5">日程查询与更新</td></tr>
-        <tr><td><code>/api/reports/:id</code></td><td>GET</td><td data-i18n="api_d6">获取每日/每周报告</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
 
 <footer>
   <div style="margin-bottom:0.5rem;">
