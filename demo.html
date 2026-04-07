@@ -468,17 +468,30 @@ function playPCM(base64) {
 }
 
 /* ---- Mic capture ---- */
+let agentSpeaking = false, agentSpeakTimer = null;
+
 function startCapture() {
   const source = audioCtx.createMediaStreamSource(mediaStream);
   processorNode = audioCtx.createScriptProcessor(4096, 1, 1);
   source.connect(processorNode);
-  processorNode.connect(audioCtx.destination);
+
+  // Route processor through a muted node — prevents mic audio from
+  // leaking to speakers (Chrome copies input→output by default).
+  const muteNode = audioCtx.createGain();
+  muteNode.gain.value = 0;
+  processorNode.connect(muteNode);
+  muteNode.connect(audioCtx.destination);
 
   const srcRate = audioCtx.sampleRate;
   const tgtRate = 16000;
 
   processorNode.onaudioprocess = (e) => {
+    // Silence the output buffer explicitly (prevents Chrome passthrough)
+    e.outputBuffer.getChannelData(0).fill(0);
+
     if (!ws || ws.readyState !== WebSocket.OPEN || isMuted) return;
+    // Suppress mic while agent is speaking to prevent echo feedback
+    if (agentSpeaking) return;
 
     const input = e.inputBuffer.getChannelData(0);
     let pcm;
@@ -538,8 +551,14 @@ function handleMessage(event) {
       break;
 
     case 'audio':
+      agentSpeaking = true;
+      clearTimeout(agentSpeakTimer);
       playPCM(data.audio_event.audio_base_64);
       setWave('speaking');
+      agentSpeakTimer = setTimeout(() => {
+        agentSpeaking = false;
+        setWave('listening');
+      }, 600);
       break;
 
     case 'ping':
@@ -553,6 +572,8 @@ function handleMessage(event) {
 
     case 'interruption':
       nextPlayTime = 0;
+      agentSpeaking = false;
+      clearTimeout(agentSpeakTimer);
       setWave('listening');
       break;
   }
@@ -611,6 +632,8 @@ function endCall() {
   ws = null;
   if (audioCtx) { audioCtx.close().catch(() => {}); audioCtx = null; }
   nextPlayTime = 0;
+  agentSpeaking = false;
+  clearTimeout(agentSpeakTimer);
   stopTimer();
   setPhoneState('idle');
   setCallStatus('Call ended · ' + fmtTime(timerSec), false);
